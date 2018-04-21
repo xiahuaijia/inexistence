@@ -4,7 +4,600 @@
 
 
 
-/etc/bash
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 2018.04.19
+
+`bluray 2.3.6`  
+1. Bug Fix：修复分辨率算错的问题（乘除数字写反了）  
+一行写错要去改 5 个地方 orz  
+
+`jietu`  
+1. Bug Fix：修复分辨率算错的问题（乘除数字写反了）  
+
+`README 1.0.7`  
+1. 更新 Transmission 的说明  
+2. 更新 Deluge 插件的说明  
+3. 增加一处参考资料  
+
+
+
+
+
+
+## 2018.04.18
+
+`inexistence 1.0.2`  
+1. **Bump to 1.0.2**  
+昨天没跳版本号那只能今天跳了  
+2. Bug Fix：更新 mkvtoolnix repo 源  
+
+`bluray 2.3.6`  
+1. Bug Fix：修复分辨率算错的问题（又乘了一次高度比）  
+
+`jietu`  
+1. Bug Fix：修复分辨率算错的问题（又乘了一次高度比）  
+
+
+
+
+
+
+## 2018.04.17
+
+`inexistence 1.0.1`  
+1. Opts：Deluge/qBittorrent 跳过校验的选项修复  
+2. 增加 Debian 8 安装 qt 5.5.1 deb 包的选项（不启用）  
+以后这个可以用于在 Debian 8 下编译安装 qBittorrent 4.0  
+3. Code：高亮部分调整  
+4. Bug Fix：修复 h5ai 有些文件夹访问不了的问题  
+不给 777 权限还不行（给 666 不行……）  
+5. Bug Fix：修复美化版 Transmission 安装脚本没有安装成功的问题  
+作者这几天改进了脚本，因此无交互安装也要改一下……  
+6. **New Feature：支持在 Debian 8 下编译安装 qBittorrent 4.0**  
+采用安装 deb 包的方式解决系统源 qt 过老的问题  
+
+`bluray 2.3.5`  
+1. **改进了自动分辨率计算，使用 bc 代替 expr，由于考虑带小数点运算因此结果更精确**  
+原先 720x480，DA 16:9 算出来分辨率是 848x480，现在算出来的是 854x480  
+
+`jietu`  
+1. 改进了自动分辨率计算，使用 bc 代替 expr，由于考虑带小数点运算因此结果更精确  
+原先 720x480，DA 16:9 算出来分辨率是 848x480，现在算出来的是 854x480  
+
+`zuozhong`  
+1. 修复了手动输入链接不可用的问题  
+
+`README 1.0.5`  
+1. 更新 Transmission 跳过校验的 Opts 写法  
+2. 更新 qBittorrent 安装的说明  
+
+
+
+
+
+## 2018.04.16
+
+`inexistence 1.0.1`  
+1. **Bump to 1.0.1**  
+2. 修改 rtinst 装的 h5ai 的位置，现设定为 `/var/www/h5ai`  
+这样可以不用管 /var/www 路径下那些多余的东西了  
+3. Bug Fix：修复 flexget 安装失败的问题  
+以前都没问题的，pip 更新后，位置变成了 `/usr/local/bin/pip`，只在脚本里用 pip 的话会定位到以前的 `/usr/bin/pip` 于是就失败了  
+4. UI：Flexget 安装完后使用 `flexget daemon status` 检查运行状态，同时状态里增加需要检查密码和配置文件的类型  
+5. Opts：增加 Tr 跳过校验版本的 Opinions `--tr-skip`  
+6. UI：部分文字高亮和换行调整  
+
+`rtinst Aniverse Mod`  
+1. 修改 rtinst 装的 h5ai 的位置，现设定为 `/var/www/h5ai`  
+
+`README 1.0.2-1.0.4`  
+1. 更新“无责任”部分  
+2. 更新安装命令  
+原先的长度太长用不了了，真蛋疼……  
+3. To do list 更新  
+增加 `Banben` 和一些说明
+4. 增加一处参考资料  
+
+
+
+
+
+
+## 2018.04.12
+
+`inexistence 1.0.0`  
+1. 更新可选的 libtorrent-rasterbar 版本到 1.1.7  
+
+
+
+
+
+
+## 2018.04.10
+
+`inexistence 1.0.0`  
+1. rtupdate 编译时候的线程数量采用之前设定的数量  
+
+`rtinst Aniverse Mod`  
+1. 同步原作者的改动  
+
+
+
+
+
+## 2018.04.09
+
+`inexistence 1.0.0`  
+1. 去除对于 Flood 安装成功与否的判断  
+还有些问题，以后再说吧，写论文没空……
+
+
+
+
+
+
+## 2018.04.08
+
+`inexistence 1.0.0`  
+1. 在日志里增加最大硬盘分区的记录  
+
+`README 1.0.1`  
+1. 增加软 RAID 升级系统后 IO 可能暴降的说明  
+
+
+
+
+
+
+## 2018.04.06
+
+`inexistence 1.0.0`  
+1. Bug Fix：修复了 Deluge SSL 判断的问题  
+2. Bug Fix：修复了 Deluge 1.3.15 skip hash check 安装失败的问题  
+3. UI：最后安装完成界面调整，长度对齐，“缩进”对齐之类的  
+4. 部分 chmod 777 改成 666  
+5. **禁用反代**  
+反代还导致 h5ai 出了点问题，暂时先禁用了  
+
+`rtinst Aniverse Mod`  
+1. 修改 h5ai 软链 rt 下载路径的名字    
+2. **禁用反代**  
+
+
+
+
+
+## 2018.04.04
+
+`inexistence 1.0.0`  
+1. Bug Fix：修复多创建了 /home/$ANUSER/qBittorrent(大写)，/home/$ANUSER/download, /home/$ANUSER/watch 目录的问题  
+2. 将 Ubuntu 16.04 下 Deluge libtorrent 的默认版本改为从 PPA 安装  
+似乎 OB 用了 TLS 1.2 后，系统源自带的 libtorrent 1.0.7 会连不上 Tracker  
+3. Alias：只用成功修改设置的情况下 sshr 才输出修改成功  
+
+
+
+
+
+
+## 2018.04.04
+
+`inexistence 1.0.0`  
+1. UI：升级系统后重启的提示修改了下；重启失败的话可能会有提示可能没有，这个情况不多见不好测试  
+此外修正了一个拼错的单词……  
+
+`IPv6`  
+1. Bug Fix：看下面的吐槽  
+不知道为什么这次我自己在 Debian 8 下跑了好几次都不成功，ifup 就行了，restart networking 还直接搞断网了，我不得不 IPMI 连上去重启了下网络……  
+这样的话还是用回 ifup 算了，蛋疼  
+
+
+
+
+
+
+## 2018.04.03
+
+`inexistence 1.0.0`  
+1. Bug Fix：暂时禁用 De/Qb 的反代  
+原来 qb webui 图标显示不出来也是反代的问题。由于不懂 ngnix 所以这个暂时先搁置了吧，之前算是瞎折腾了  
+2. 增加 lolcat 的安装  
+
+`IPv6`  
+1. New Feature：对于没有 `systemctl` 的，仍然使用 `ifdown` `ifup`  
+
+`BDinfo`  
+1. 修复文件名不对导致最后无法输出结果的问题  
+2. 最后不经询问直接输出结果  
+3. 改进一些写法  
+
+`README 1.0.1`  
+1. 更新 IPv6 部分的说明  
+2. 说明 qb 的隐藏选项  
+3. 说明 de/qb/tr/rt `No` 不安装的写法  
+
+
+
+
+
+
+## 2018.04.02
+
+`inexistence 1.0.0`  
+1. Bug Fix：创建 qb 的日志文件  
+
+
+
+
+
+## 2018.04.01
+
+`inexistence 1.0.0`  
+1. Bug Fix：启用 qb webui 的本地认证  
+
+`IPv6`  
+1. New Feature：使用参数的情况下也可以自动检测网卡  
+2. UI：使用 jiacu 代替 white  
+
+
+
+
+
+## 2018.03.31
+
+`inexistence 1.0.0`  
+1. Bug Fix：修复 qBittorrent WebUI 因为反代跳过了账号密码验证的问题  
+
+
+
+
+
+## 2018.03.29
+
+`inexistence 1.0.0`  
+1. 还是加了个 speedtest-cli 的安装  
+下一步原先那个可以删了，不需要 beta 的输出了……  
+2. Code：部分调整  
+
+
+
+
+
+## 2018.03.28
+
+`inexistence 1.0.0`  
+1. UI：脚本结尾处界面调整  
+2. **UI：检查安装完成后客户端是否在运行**  
+之前忘记写这个了，这次写吧，反正这次也做了很多调整  
+3. rTorrent 输出自签的证书  
+
+`MinGLiNG 0.8.6`  
+1. 界面微调  
+
+`README 1.0.0`  
+1. **Bump to 1.0.0**  
+2. **inexistence 和 mingling 重新截图**  
+就截图+修改界面弄了我将近 2 个小时，醉了醉了……  
+尽量调整宽度也统一……以后截图需要注意宽度了  
+从现在开始截图文件直接存放在本项目下好了，反正也没多大  
+3. **增加 Opinions 的说明**  
+4. **增加 swap 的介绍**  
+5. **重新加回 Usage**  
+6. **去除不希望被宣传的声明**  
+随它去吧……多点人测试也没啥不好  
+
+
+
+
+
+## 2018.03.27
+
+`inexistence 1.0.0`  
+1. **Bump to 1.0.0**  
+2. **调整 rTorrent，增加不支持 IPv6 的 rtorrent 0.9.6**  
+3. **调整脚本安装选项**  
+--enable-ipv6，--yes，以及 de/qb/tr ppa/repo 版本的输入  
+4. UI：输出文字调整  
+5. 增加 unrarall 脚本  
+6. Bug fix：Flexget 密码没设置好时提示用户  
+修了好几次终于搞定了……不知道为什么变量无法传递过去……  
+7. **New Feature：安装完成后检查客户端是否在运行**  
+又改了好久的排版，包括 Flexget 账号、密码部分  
+8. **New Feature：增加对于架构的检查，不支持非 x86-64 架构**  
+
+
+
+
+
+## 2018.03.26
+
+`inexistence 0.9.9`  
+1. Alias：rt 使用 -k 参数强行关闭  
+2. Code：排版调整  
+3. 删除 rTorrent 一些已经集成到 `rtinst` 的代码  
+4. Bug Fix：修复 Deluge libtorrent 默认选项判断的问题  
+5. **New Feature：脚本选项、参数**  
+具体哪些选项以后再单独在 WiKi 写  
+6. **New rtinst：重写的 rtinst，不再需要多个分支**  
+此处具体请看 rtinst 项目  
+7. **rTorrent 版本新增 0.9.2 与 0.9.3，包括对应的 IPv6 版本**  
+
+`MinGLiNG 0.8.6`  
+1. 客户端操作菜单：同步 `inexistence` 的改动，对于 `rt` 使用 `-k` 参数强关  
+
+`README 0.8.0`  
+1. 对应 `rtinst` 的改动，更新说明  
+2. 增加参考资料  
+
+
+
+
+
+## 2018.03.25
+
+`inexistence 0.9.9`  
+1. rtinst 维修中，暂无法使用  
+
+
+
+
+
+## 2018.03.24
+
+`inexistence 0.9.9`  
+1. Deluge auth 的信息改为追加方式写入  
+
+
+
+
+
+## 2018.03.23
+
+`inexistence 0.9.9`  
+1. Code：DeBUG 密码、其他微调  
+2. Bug fix：修复公网 IPv4 地址未检测到那边 `||` 和 `&&` 没用对的情况  
+虽然我还从来没碰到过会触发这个 bug 的情况  
+3. Output：升级的话显示 upgradation 花了多少时间，而不是 installation  
+4. Alias：`vms` 改成 1 秒更新 1 次  
+
+`MinGLiNG 0.8.6`  
+1. 启用 systemreinstall  
+虽然我还没写好……    
+2. Usage：更新部分 alias
+vns, iotest, vms, yongle, sshr, cronr  
+3. Code：写法微调  
+
+`README 0.7.9`  
+1. Under Consideration 那一块  
+2. 去掉 mingling 的 usage  
+4. 加了一堆空格，写的时候看上去舒服点，GitHub 上也看不出来因为会吞掉  
+3. 其他微调  
+
+`zuozhong`  
+1. 增加署名  
+2. 从 `bluray` 那同步关于 tracker 的代码  
+
+
+
+
+
+## 2018.03.21
+
+`inexistence 0.9.9`  
+1. Code：root 检查在 DeBUG 模式下会跳过，同时修复了非 root 时提示语没有应用色彩样式的问题  
+2. UI：询问是否升级系统处，彩色化系统文字部分  
+3. DeBUG 模式下，跳过对于 root 的检查  
+4. 在 BDinfo 文件夹下创建到 wine DVDFab10 BDinfo 的软链  
+
+`Blu-ray 2.3.3.3`  
+1. **New Feature：检查 pathtostuff 下是否有 ISO 存在**  
+主要应对首发原盘的情况  
+2. DeBUG Mode：补充了一些输出信息，调整界面  
+3. **UI：${white}→${jiacu}**  
+4. 有多余文件的情况下默认选择不复制  
+5. Bug Fix：优化判断 main_m2ts 的逻辑，只选择 m2ts 文件  
+因为发现如果是 MGVC 的 BDISO，挂载了以后最大的可能是 bin 文件而不是 m2ts  
+6. Bug Fix：file_title_clean 去除斜杠，同时修复 BDinfo 命名问题  
+
+### Blu-ray MGVC
+这次对于比较少见的 MGVC 做了下测试，在此做个“测评报告”  
+1. 首先发现了之前判断 main_m2ts 的逻辑有问题，已修复  
+2. BDinfoCLI 扫出来的信息总体和 DVDFab 一致，只是 DiscSize 那边大概是两倍左右的体积（不过 DVDFab 其实是扫直接扫 BDISO 而不是 BDMV 的）  
+3. DVDFab 也不会显示 MGVC 相关的特殊信息，可能只有松下的机器才能认出来？  
+4. 是否需要考虑针对 MGVC 原盘，默认选择不重新做种？（靠检测里面是否有 KDM 文件夹？）  
+
+`MinGLiNG 0.8.5`  
+1. **UI：${white}→${jiacu}**  
+2. 对于多个 CPU 可以显示正确的核心数量，并显示是双路、四路还是八路  
+3. Code：去掉部分变量用到的双引号和大括号  
+4. TuCao：其实都是同步 `inexistence` 的改动而已  
+5. DeBUG，还没正式写入，只是先复制粘贴一下  
+
+`BDjieTU`  
+1. 其实这个已经不用了，不过顺手更新下也不难  
+2. UI：${white}→${jiacu}  
+3. 增加署名  
+4. Bug Fix：优化判断 main_m2ts 的逻辑，只选择 m2ts 文件  
+5. Bug Fix：file_title_clean 去除斜杠  
+6. Code：简化写法  
+7. New Feature：自动根据时长确定截图时间间隔  
+8. 分辨率还是用以前的 1920x1080 算了  
+
+`TCP 1.1.0`  
+1. **New Feature：可安装自定义内核及其头文件**  
+不过似乎 4.15 的头文件装不上……  
+2. UI：调整  
+
+`BDinfo`  
+1. UI：${white}→${jiacu}  
+2. Author & Date  
+3. Bug Fix：file_title_clean 去除斜杠，同时修复 BDinfo 命名问题  
+
+`xianSu`  
+1. UI：${white}→${jiacu}  
+2. Author & Date  
+
+`GuaZAI`  
+1. UI：${white}→${jiacu}  
+
+`JiEGuA`  
+1. UI：${white}→${jiacu}  
+
+
+
+
+
+
+## 2018.03.20
+
+`inexistence 0.9.9`  
+1. Bug Fix：修复 Flood 无论如何都会被安装的问题  
+2. 修复 Virt-what 无法正常运行的问题  
+还是不用 cat，选择 wget 回来……  
+同时修改了下 virt-what 脚本的输出  
+3. Code：提前了 root 检查部分，以及缩进调整  
+4. 对于多个 CPU 可以显示正确的核心数量，并显示是双路、四路还是八路  
+
+
+
+
+
+## 2018.03.19
+
+`inexistence 0.9.9`  
+1. Bug Fix：修复 UseTweaks 选项直接跳过的问题  
+
+
+
+
+
+
+## 2018.03.18
+
+`inexistence 0.9.9`  
+1. **Bump to 0.9.9**  
+2. UI：把一些安装完成的步骤改得更明显，然后 deluge 的编译日志还是去掉了  
+3. Code：换行、排版、去除双引号  
+部分 while 改成 if  
+4. **Bug Fix：编译安装 libtorrent-rasterbar 时若系统总内存小于 1900MB 则使用 swap**
+5. **Bug Fix：修复 Debian 9 下 Deluge 和 qBittorrent 一起安装时 libtorrent 冲突的问题**  
+首先发现 VPS 编译 libtorrent-rasterbar 可能出现内存不足的情况，先加了 swap  
+然后发现其实以前写的 DeQbLT 之类的判断逻辑不太对，应该先全部认定是 No，再把 Yes 的情况写出来  
+然后这样子总算是解决了  
+忍不住再吐槽一次，真是麻烦…… 用编译好的多省事啊……  
+6. **New Feature：内存较小时默认使用 swap**  
+7. **Code：竟然有 3000+ 行了……**  
+虽说好多是注释和空格，不过感觉也不少了……  
+8. **Interactive：Deluge libtorrent 没选择默认选项的话弹出警告，要求用户再次确认**  
+9. UI：询问版本时，which version of deluge，完整点  
+10. 添加 rclone.service  
+11. bash.bashrc：颜色设置、`iotest` 命令  
+12. **用 cat 添加 `Virt-what` 并用于检测虚拟化技术**  
+
+
+
+
+
+## 2018.03.17
+
+`inexistence 0.9.8.17`  
+1. **New Feature：询问问题询问前使用 while**  
+为以后使用参数，以及 DeBUG 模式作准备  
+写完了以后我才意识到为什么我要用 while 呢，用 if 不是也可以么……  
+2. **Bug Fix：修复 Debian 9 下 Deluge 和 qBittorrent 一起安装时 libtorrent 冲突的问题**  
+其实并没有修复成功←_←  
+3. **Bug Fix：安装 flood 时若系统总内存小于 1900MB 则使用 swap**  
+4. Bug Fix：修复 Deluge PPA libtorrent 版本判断不正确的问题  
+5. UI：闪烁提示 libtorrent-rasterbar 不要乱选  
+6. **Code：换行、去除双引号**  
+从行数上来说这次行数变动很大 lol  
+去除了所有的 ${white}，这下在白底黑字的情况下终于正常了  
+
+
+
+
+
+## 2018.03.16
+
+`inexistence 0.9.8.11`  
+1. remove `export $TOP_PID_2=$$`  
+
+`README 0.7.6`  
+1. 增加升级系统的图  
+
+`TrCtrlProToc0l 0.8.0-1.0.7`  
+1. 界面调整  
+2. 修复安装 BBR 没有成功安装固件的问题  
+
+
+
+
+
+## 2018.03.15
+
+`inexistence 0.9.8.10`  
+1. **New Feature：-d 参数**  
+-d：开启 DeBUG 模式。同时 DeBUG 下升级系统后不重启，方便跑 TCP 脚本  
+2. alias：修改 `sshr` 的输出  
+3. 增加对于 `rsync` 与 `build-essential` 的安装  
+4. 修改了 firmware 的下载地址  
+5. UI：优化了升级系统时的一些提示的显示效果  
+
+`mingling 0.8.2`  
+1. 同步 `TCP` 脚本的修改  
+
+`TrCtrlProToc0l 0.8.0-1.0.3`  
+1. 改了太多东西，懒得写了……  
+
+
+
+
+
+## 2018.03.14
+
+`inexistence 0.9.8.6`  
+1. **alias 部分从 `/etc/profile` 改到 `/etc/bash.bashrc`**  
+解决了非登录式 shell 下 alias 不可用的问题  
+此外追加了一些 alias，添加了删除之前写入的内容的命令，只不过根据行的数量来删除，可能会有误删除的情况  
+我在想是不是用 for 之类的来检查比较好？或者把 alias、export 带头的全删了之类的？  
+2. `apt-get -y autoremove`  
+3. 修改了 locks 的位置，补全 locks  
+4. **BBR 不使用脚本安装**  
+本来也没几步，就自己写了；内核固定为 4.11.12，方便之后安装魔改版 BBR  
+5. UI：不屏蔽 apt 安装时的输出  
+6. Bug Fix：修复 Flexget WebUI 密码没有设置好时没有提示的问题  
+用 || 也没用，不返回 1，似乎只能根据输出内容判断了  
+此外还有个问题，deluge auth 的密码太简单也不行，似乎不生效，然后 flexget 配置文件检查就失败了，就导致 flexget 没法正常运行，真是蛋疼……    
+
+`mingling 0.8.1`  
+1. 同步 `inexistence` 的改动，修改了判断方式  
+
+`README 0.7.2-0.7.5`  
+1. 去掉了一些分隔线  
+2. BBR 部分改动  
+3. mingling 增加了更新方法  
+4. 更新不希望被宣传的说明
+5. 其他小改  
+6. 其实一般来说应该是稍微改了点就跟进一个版本号……  
+
+
+
 
 
 ## 2018.03.12
@@ -12,6 +605,7 @@
 `inexistence 0.9.8`  
 1. **Bump to 0.9.8**  
 2. 增加 `debconf-get-selections`、`debconf-set-selections`、`besttrace`、`uuid` 的安装  
+3. 增加 lock 文件，以后用于判断是否安装了某些软件/功能  
 
 `mingling 0.8.0`  
 1. **Bump to 0.8.0**  
@@ -20,7 +614,7 @@
 5. **UI：取消了隐藏光标的设定**  
 老是有人以为卡死了，尴尬，取消了算了……  
 4. **Usage：更新了部分 Usage 的说明**  
-5. **Clients：使用 rtinst 的 rt 脚本代替 systemd，并加入了 irssi 开关**  
+5. **Clients：使用 rtinst 的 rt 脚本代替了 rTorrent 的 systemd，并加入了 irssi 开关**  
 6. **Clients：选项增加到 24 个**  
 7. **Scripts：大致做了个样子，更正了写法，更新了一些内容**  
 To be completed ...  
@@ -33,7 +627,8 @@ To be completed ...
 `ChangeLOG 0.2.1`  
 1. 2017.12.07-2018.03.12  
 2. 201710XX-20171015  
-3. 三级标题改成二级标题
+3. **三级标题改成二级标题**  
+然后 GitHub 的 Markdown 会加上一个分隔线  
 
 
 
@@ -70,7 +665,7 @@ To be completed ...
 ## 2018.03.09
 
 `inexistence 0.9.7.6`  
-1. **New Feature：对于 Debian 7 和 Ubuntu 14.04，可以用脚本升级到 Debian 8 和 Ubuntu 16.04 **  
+1. **New Feature：对于 Debian 7 和 Ubuntu 14.04，可以用脚本升级到 Debian 8 和 Ubuntu 16.04**  
 采用无交互的方式升级系统，应该不会再碰到各类询问你要怎么办的问题了  
 升级完后显示所花费的时间，然后直接重启盒子，提示重启后再运行一次本脚本  
 2. **Bug Fix：修复一开始 !/bin/bash not found 的报错**  
