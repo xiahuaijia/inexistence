@@ -11,6 +11,9 @@
 ## Usage
 
 ```
+bash -c "$(wget --no-check-certificate -qO- https://github.com/Aniverse/inexistence/raw/master/inexistence.sh)"
+```
+```
 wget --no-check-certificate -qO inexistence.sh https://github.com/Aniverse/inexistence/raw/master/inexistence.sh
 bash inexistence.sh
 ```
@@ -85,7 +88,7 @@ bash inexistence.sh
 
 8. ***Deluge***  
 **`--de '1.3.15 (Skip hash check)'`**、**`--de 1.3.9`**、**`--de repo`**、**`--de No`**  
-在 `Ubuntu 16.04` 下默认选项为从 PPA 安装，在其他系统中默认选项为 1.3.15  
+默认选项为从源码安装 1.3.15  
 此外还会安装一些实用的 Deluge 第三方插件：  
 - `AutoRemovePlus` 是自动删种插件，支持 WebUI 与 GtkUI  
 - `ltconfig` 是一个调整 `libtorrent-rasterbar` 参数的插件，在安装完后就启用了 `High Performance Seed` 模式  
@@ -99,10 +102,9 @@ bash inexistence.sh
 
 
 9. ***libtorrent-rasterbar***  
-**`--delt libtorrent-1_0_11`**、**`--delt repo`**、**`--delt No`**  
-Deluge 选项选择 repo、PPA、不安装的话这个选项不会出现  
-如果你不了解这是什么东西，请敲回车选择默认选项！乱选版本容易翻车  
-最新的 1.1.X 版本在 Deluge 和 qBittorrent 上或多或少都有些问题，因此不建议选择这个版本  
+本来这里是有个询问 libtorrent-rasterbar 版本的，现在直接移除了  
+现在脚本安装的 Deluge 和 qBittorrent 都会使用来自 RC_1_0 分支的 1.0.11 版，可以正确地汇报双栈 IP 地址  
+[关于 libtorrent-rasterbar 的一些个人总结](https://github.com/Aniverse/inexistence/blob/master/ChangeLOG.md#about-libtorrent-rasterbar)  
 
 
 10. ***rTorrent***  

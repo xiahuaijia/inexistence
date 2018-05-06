@@ -7,6 +7,152 @@
 
 
 
+## 2018.05.03
+
+`inexistence 1.0.4`  
+1. Deluge 安装老版本时，仅使用老版本的 deluged，其余使用 1.3.15 的文件  
+
+
+
+
+
+
+
+## 2018.05.02
+
+`inexistence 1.0.4`  
+1. New Feature：增加 Transmission 2.94 的安装选项  
+2. 安装 flexget 前先安装 markdown  
+
+`bluray 2.4.5`  
+1. Bug Fix：-i 参数现在会覆盖 -d 参数了  
+2. Bug Fix：-s 参数支持 autoar  
+3. New Feature：-t 参数增加 input 类型  
+4. New Feature：--no-vcs 参数，跳过缩略图  
+5. **New Feature：增加 -p 参数，可以指定 BD 路径**  
+6. UI：显示脚本版本号  
+7. **UI：高亮显示每个选项的回应**  
+8. Known Issues：-t 参数指定 Tracker 可能导致无法制作种子，待修复  
+
+
+
+
+
+## 2018.04.30
+
+`inexistence 1.0.4`  
+1. Bug Fix：针对使用参数运行脚本的情况，修正了下 bbr 的安装逻辑  
+即 `--bbr-yes` 的情况下根据实际情况判断是否安装新内核  
+2. Bug Fix：增加对 libssl 1.0 的安装以免不满足 4.11 headers 依赖的情况  
+3. Bug Fix：qb deb 包 mv 的问题  
+4. Alias：改进开启 root 登陆的命令  
+
+`bluray 2.4.0`  
+1. **New Feature：增加运行参数**  
+d,y,i,s,t  
+
+
+
+
+
+## 2018.04.29
+
+`inexistence 1.0.4`  
+1. Bug Fix：升级系统结束后，在 reboot 后再使用 init 6 重启  
+
+`jietu`  
+1. **New Feature：自动判断分辨率后询问是否正确，若不正确则可以手动输入**  
+
+`bdinfo`  
+1. Bug Fix：修复 BDinfo 文件名判断错误的问题  
+
+`bluray 2.3.7`  
+1. Bug Fix：修复 BDinfo 文件名判断错误的问题  
+2. Bug Fix：修复 询问分辨率时实际选项和显示的选项没对上的问题  
+3. 截图询问自定义分辨率时，以视频原始分辨率为模板来询问  
+也就是说，如果自动计算分辨率出错，要用回原始分辨率的话直接敲回车就行  
+说到这个我又想到，我或许可以直接取消这个问题，先设定自动计算，然后询问是否使用这个计算出来的分辨率……  
+
+
+
+
+
+
+## 2018.04.26
+
+`inexistence 1.0.4`  
+1. **Bump to 1.0.4**  
+2. **New Feature：允许从 Ubuntu 14.04 升级到 18.04，允许从 Debian 7 升级到 Debian 9**  
+升级前先替换系统源，然后如果垮了一个系统升级的话先升级 apt  
+过段时间考虑开始适配 Ubuntu 18.04  
+3. checkinstall 安装 qb 的包名改成 `qbittorrent-headless`，补充了更多的 deb 包信息  
+为了和别的做区分而故意这么设计的  
+4. 已经安装了 qb 的情况下，保险起见还是 make install   
+
+
+
+
+
+
+## 2018.04.26
+
+`inexistence 1.0.3`  
+1. **Bump to 1.0.3**  
+是不是稍微快了点，不过这次 dpkg libtorrent 确实是个很大的变化了……  
+2. **New Feature：不再询问 libtorrent 版本，全部指定使用预编译好的 1.0.11 deb 包来安装**  
+经过测试，在 Debian 8/9、Ubuntu 16.04 下都可以正常安装  
+且在 U2/CMCT 使用 Deluge/qBittorrent 无需任何设置即可同时汇报 IPv6 与 IPv4 地址  
+3. **New Feature：统一 libtorrent-rasterbar 的安装参数**  
+现在可以同时支持 Deluge 和 qBittorrent 了  
+解决办法从 GitHub 里某个 issue 下找来的，修改 libtorrent 源码里的一行就可以了  
+这个问题折腾了我好长好长时间，现在终于解决了……  
+怎么说呢，要自己看得懂才行，不然都只能请教别人……  
+4. Ubuntu 16.04 下 Deluge 的默认选项改为从源码安装的 1.3.15  
+主要是为了配合新的 libtorrent 包，并且 Deluge 安装怎么样都很快  
+5. **Bug Fix：修复 Ubuntu 16.04 下编译安装 qBittorrent 4.0 后 Deluge libtorrent 失效的问题**  
+其实 2/3/4/5 说的是同一件事情……  
+
+
+`About` 
+1. 再次提前写更新日志  
+2. 这里是碎碎念时间  
+3. 准备好了 qBittorrent 在三个系统下的 deb 包，以后进一步考虑全部使用 deb 包解决？！  
+4. 这次重新写了下在 VPS 上编译的步骤，步骤简化+一步到位，省事很多了……  
+5. 在 Vultr 5欧 Cloud Compute 上编译 qt 5.9.5 要 240-250 分钟……  
+deb 包的体积 270MB 左右，无法直接扔 GitHUb 了  
+编译 5.10.1 的话要 300 分钟左右，并且 configure 的时候还会提示缺了三个东西  
+最后 checkinstall 只会出来一个十几 MB 的包，dpkg -i 装了这个包的话东西也是不全的……
+
+`README 1.1.0` 
+1. 加回以前的一行安装代码  
+因为代码精简了，所以长度没有超出了  
+2. 更新 libtorrent-rasterbar 的说明  
+
+
+
+
+
+### About libtorrent-rasterbar
+总结下三个系统和 Xenial PPA 自带的 libtorrent 的表现吧：  
+Ubuntu 16.04 系统自带的 1.0.7 别的都没问题，qb 编译也能用，就是不支持 OurBits（别的站都没问题）  
+Debian 8 自带的 0.16.18 汇报双栈 IP 没问题，但是无法不适配 qBittorrent（版本太老），OurBits 也不支持  
+Debian 9 自带的 1.1.1 最尴尬，qBittorrent 编译不支持，给 Deluge 用 bug 也很多……  
+PS:OB 最近 https 这方面有改过才导致一些老版本不支持  
+
+来自 Ubuntu 16.04 Deluge PPA 的 libtorrent 1.0.11，有段时间我可以直接 V4+V6，现在不行了，大概包升级了  
+这个版本无法用于编译 qb，但如果你 qb 已经编译完了再切换到这个包却又没问题……  
+来自 Ubuntu 16.04 qBittorrent PPA 的 libtorrent 1.1.7，我得说 qb 官方更新这个还是很勤快的，现在用的往往是最新版本（3.3 的时候倒是停留在 1.0.11），但是追新不一定是件好事  
+目前来看 libtorrent 1.1.X 系列的 bug 还是比较多的，不是很建议使用  
+
+Deluge 目前基本上 0.16 以后的 lt 都能用，但是 1.1 的话用是能用，bug 却很多，比如汇报 tracker 时间显示为无限、无法限制速度等等  
+qBittorrent 基本上需要 1.0.7 以后的（0.16 要用于编译好像也不是不行，但是官方说放弃支持了我觉得还是不要考虑了吧），1.1.X 在 qb 3.3 上支持不好；在 4.X 上官方都开始使用 1.1.X 了，然而 1.1.X 本身 bug 比较多……  
+
+如果用 apt 安装的话，Deluge 对应的包是 python-libtorrent，qBittorrent 对应的包是 libtorrent-rasterbar-dev  
+不过这两个包其实还是依赖于 libtorrent-rasterbar[789] 这个包，7 对应 libtorrent-rasterbar 0.16 版，8 对应 1.0，9 对应 1.1  
+
+编译安装的话，confugure 的时候 Deluge 必须用上 --enable-python-binding，--with-libiconv 不确定是否必须  
+qBittorrent 4.0 以后的版本最好用上 CXXFLAGS=-std=c++11（4.0 以前的版本这个不是必须）（不用好像也行，但不用的话 libboost 似乎要用 C++11 才行）  
+此外 `--disable-debug --enable-encryption --with-libgeoip=system` 这几个我想或许没有也行？……  
 
 
 
@@ -15,7 +161,41 @@
 
 
 
+## 2018.04.25
 
+`inexistence 1.0.2`  
+1. libtorrent 改为从 RC 分支安装  
+2. 编译完后不删除编译时留下的文件（主要是用于 make uninstall）  
+3. 修改编译安装时的下载路径  
+4. 源码文件夹内记录版本号  
+5. 增加一些路径与路径说明文件  
+
+`README 1.0.8` 
+1. 更新明天要改的 libtorrent 的内容  
+
+`ChangeLog 0.3.0` 
+1. 写了 libtorrent 的一些总结  
+
+
+
+
+
+## 2018.04.22
+
+`inexistence 1.0.2`  
+1. Bug Fix：修复 Ubuntu16.04 可跳过校验的 Deluge 1.3.15 安装失败的问题  
+竟然有 issues 了……  
+
+
+
+
+
+## 2018.04.21
+
+`inexistence 1.0.2`  
+1. **Bump to 1.0.2**  
+2. 修改 php 内存限制为 512MB  
+原先为 128MB，听说这个值改大点 ruTorrent 会更稳定一些  
 
 
 
