@@ -3,14 +3,17 @@
 # https://github.com/Aniverse/inexistence
 # Author: Aniverse
 #
+# bash <(curl -s https://raw.githubusercontent.com/Aniverse/inexistence/master/inexistence.sh)
+# bash -c "$(wget --no-check-certificate -qO- https://github.com/Aniverse/inexistence/raw/master/inexistence.sh)"
+#
 # PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 # export PATH
 # --------------------------------------------------------------------------------
 SYSTEMCHECK=1
 DISABLE=0
 DeBUG=0
-INEXISTENCEVER=1.0.4
-INEXISTENCEDATE=2018.05.05
+INEXISTENCEVER=1.0.7
+INEXISTENCEDATE=2018.06.09
 # --------------------------------------------------------------------------------
 
 
@@ -89,7 +92,8 @@ baihuangse=${white}${on_yellow}; bailanse=${white}${on_blue}; bailvse=${white}${
 baiqingse=${white}${on_cyan}; baihongse=${white}${on_red}; baizise=${white}${on_magenta};
 heibaise=${black}${on_white}; heihuangse=${on_yellow}${black}
 jiacu=${normal}${bold}
-shanshuo=$(tput blink); wuguangbiao=$(tput civis); guangbiao=$(tput cnorm) ; }
+shanshuo=$(tput blink); wuguangbiao=$(tput civis); guangbiao=$(tput cnorm)
+CW="${bold}${baihongse} ERROR ${jiacu}";ZY="${baihongse}${bold} ATTENTION ${jiacu}";JG="${baihongse}${bold} WARNING ${jiacu}" ; }
 _colors
 # --------------------------------------------------------------------------------
 # 增加 swap
@@ -162,66 +166,6 @@ function _client_version_check(){
 ### 随机数 ###
 function _string() { perl -le 'print map {(a..z,A..Z,0..9)[rand 62] } 0..pop' 15 ; }
 # --------------------------------------------------------------------------------
-### 检查网站是否可以访问
-check_url() { if [[ `wget -S --spider --no-check-certificate -t1 -T6 $1  2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then return 0; else return 1; fi ; }
-
-### 检查系统源是否可用 ###
-function _checkrepo1() {
-os_repo=0
-echo -e "\n${bold}Checking the web sites we will need are accessible${normal}"
-
-for i in $(cat /etc/apt/sources.list | grep "^deb http" | cut -d' ' -f2 | uniq ); do
-  echo -n $i": "
-  check_url $i && echo "${green}OK${normal}" || { echo "${bold}${red}FAIL${normal}"; os_repo=1; }
-done
-
-if [ $os_repo = 1 ]; then
-  echo "${bold}${baihongse}FAILED${normal} ${bold}Some of your $DISTRO mirrors are down, you need to fix it manually${normal}"
-fi
-}
-
-### 第三方源的网址 ###
-rt_url="http://rtorrent.net/downloads/"
-xmlrpc_url="https://github.com/Aniverse/xmlrpc-c"
-ru_url="https://github.com/Novik/ruTorrent"
-adl_url="https://github.com/autodl-community"
-inex_url="https://github.com/Aniverse/inexistence"
-qbt_url="https://github.com/qbittorrent/qBittorrent"
-de_url="http://download.deluge-torrent.org"
-lt_url="https://github.com/arvidn/libtorrent"
-rtinst_url="https://github.com/Aniverse/rtinst"
-libevent_url="https://github.com/libevent/libevent"
-tr_url="https://github.com/transmission/transmission"
-trweb_url="https://github.com/ronggang/transmission-web-control"
-rclone_url="https://downloads.rclone.org"
-
-### 检查第三方源是否可用 ###
-function _checkrepo2() {
-major_repo=0
-echo
-echo "Checking major 3rd party components"
-# echo -n ": "; check_url $_url && echo "${green}OK${normal}" || { echo "${red}FAIL${normal}"; major_repo=1; }
-echo -n "Inexistence: "          ; check_url $inex_url     && echo "${green}OK${normal}" || { echo "${red}FAIL${normal}" ; major_repo=1 ; }
-echo -n "qBittorrent: "          ; check_url $qbt_url      && echo "${green}OK${normal}" || { echo "${red}FAIL${normal}" ; major_repo=1 ; }
-echo -n "Deluge: "               ; check_url $de_url       && echo "${green}OK${normal}" || { echo "${red}FAIL${normal}" ; major_repo=1 ; }
-echo -n "Libtorrent-rasterbar: " ; check_url $lt_url       && echo "${green}OK${normal}" || { echo "${red}FAIL${normal}" ; major_repo=1 ; }
-echo -n "rtinst Aniverse Mod: "  ; check_url $rtinst_url   && echo "${green}OK${normal}" || { echo "${red}FAIL${normal}" ; major_repo=1 ; }
-echo -n "Rtorrent: "             ; check_url $rt_url       && echo "${green}OK${normal}" || { echo "${red}FAIL${normal}" ; major_repo=1 ; }
-echo -n "xmlrpc-c: "             ; check_url $xmlrpc_url   && echo "${green}OK${normal}" || { echo "${red}FAIL${normal}" ; major_repo=1 ; }
-echo -n "RuTorrent: "            ; check_url $ru_url       && echo "${green}OK${normal}" || { echo "${red}FAIL${normal}" ; major_repo=1 ; }
-echo -n "Autodl-irssi: "         ; check_url $adl_url      && echo "${green}OK${normal}" || { echo "${red}FAIL${normal}" ; major_repo=1 ; }
-echo -n "libevent: "             ; check_url $libevent_url && echo "${green}OK${normal}" || { echo "${red}FAIL${normal}" ; major_repo=1 ; }
-echo -n "Transmission: "         ; check_url $tr_url       && echo "${green}OK${normal}" || { echo "${red}FAIL${normal}" ; major_repo=1 ; }
-echo -n "Transmission WebUI: "   ; check_url $trweb_url    && echo "${green}OK${normal}" || { echo "${red}FAIL${normal}" ; major_repo=1 ; }
-echo -n "rclone: "               ; check_url $rclone_url   && echo "${green}OK${normal}" || { echo "${red}FAIL${normal}" ; major_repo=1 ; }
-echo
-
-if [ $major_repo = 1 ]; then
-  echo "${bold}${baihongse}WARNING${normal} ${bold}Some of the repositories we need are not currently available"
-  echo "We will continue for now, but may not be able to finish${normal}"
-fi
-
-echo ; }
 
 ### 输入自己想要的软件版本 ###
 function _inputversion() {
@@ -242,40 +186,24 @@ if [[ ! "$SysSupport" == 1 ]]; then
     exit 1
 fi ; }
 
+# 进度显示
+spinner() {
+    local pid=$1
+    local delay=0.25
+    local spinstr='|/-\'
+    while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+        local temp=${spinstr#?}
+        printf " [${bold}${yellow}%c${normal}]  " "$spinstr"
+        local spinstr=$temp${spinstr%"$temp"}
+        sleep $delay
+        printf "\b\b\b\b\b\b"
+    done
+    printf "    \b\b\b\b"
+    echo -ne "${OK}"
+}
+
 # --------------------------------------------------------------------------------
-###   Downloads\ScanDirsV2=@Variant(\0\0\0\x1c\0\0\0\0)
-###   ("yakkety"|"xenial"|"wily"|"jessie"|"stretch"|"zesty"|"artful")
-# --------------------------------------------------------------------------------
 
-
-
-
-
-if [[ $DISABLE == 1 ]]; then clear ; echo "
-${heibaise}${bold}                                                                   ${normal}
-${heibaise}${bold}        :iLKW######Ef:                       ,fDKKEDj;::           ${normal}
-${heibaise}${bold}  #KE####j           f######f        tDW###Wf          ,W#######   ${normal}
-${heibaise}${bold}  ####j                   t#########EW#f                   #####   ${normal}
-${heibaise}${bold}  LW##                      ######KE#W                      ##WK   ${normal}
-${heibaise}${bold}    WG                      i###KG###i                      ##     ${normal}
-${heibaise}${bold}    WK                      f#t    ;#i                      WE     ${normal}
-${heibaise}${bold}    i#                      ##      ##                      #.     ${normal}
-${heibaise}${bold}     W                     D#.      :#E                     W      ${normal}
-${heibaise}${bold}     KL                   DW;        f#i                   fL      ${normal}
-${heibaise}${bold}      W,                 GWi          tW:                  #       ${normal}
-${heibaise}${bold}      :KW              ,#W              W#                #,       ${normal}
-${heibaise}${bold}         WW#W:     ,K#Kj                  WWD.        ,#Kf         ${normal}
-${heibaise}${bold}             .:W#:,                           :ftGWEf;             ${normal}
-${heibaise}${bold}                                                                   ${normal}
-
-###################################################################
-#                                                                 #
-#                       ${green}${bold}TOO YOUNG TOO SIMPLE  ${normal}                    #
-#                                                                 #
-#                   ${green}${bold}Please read README on GitHub${normal}                  #
-#                                                                 #
-###################################################################
-" ; exit 1 ; fi ; clear
 
 
 
@@ -284,9 +212,11 @@ ${heibaise}${bold}                                                              
 # --------------------- 系统检查 --------------------- #
 function _intro() {
 
+clear
+
 # 检查是否以 root 权限运行脚本
 if [[ ! $DeBUG == 1 ]]; then if [[ $EUID != 0 ]]; then echo -e "\n${title}${bold}Navie! I think this young man will not be able to run this script without root privileges.${normal}\n" ; exit 1
-else echo "${green}${bold}Excited! You're running this script as root. Let's make some big news ... ${normal}" ; fi ; fi
+else echo -e "\n${green}${bold}Excited! You're running this script as root. Let's make some big news ... ${normal}" ; fi ; fi
 
 arch=$( uname -m ) # 架构，可以识别 ARM
 lbit=$( getconf LONG_BIT ) # 只显示多少位，无法识别 ARM
@@ -301,49 +231,45 @@ DISTROL=`  echo $DISTRO | tr 'A-Z' 'a-z'  `
 CODENAME=`  cat /etc/os-release | grep VERSION= | tr '[A-Z]' '[a-z]' | sed 's/\"\|(\|)\|[0-9.,]\|version\|lts//g' | awk '{print $2}'  `
 [[ $DISTRO == Ubuntu ]] && osversion=`  grep -oE  "[0-9.]+" /etc/issue  `
 [[ $DISTRO == Debian ]] && osversion=`  cat /etc/debian_version  `
-[[ "$CODENAME" =~ ("xenial"|"jessie"|"stretch") ]] && SysSupport=1
-[[ "$CODENAME" =~      ("wheezy"|"trusty")      ]] && SysSupport=2
+[[ $CODENAME =~ (xenial|bionic|jessie|stretch) ]] && SysSupport=1
+[[ $CODENAME =~        (wheezy|trusty)         ]] && SysSupport=2
 [[ $DeBUG == 1 ]] && echo "${bold}DISTRO=$DISTRO, CODENAME=$CODENAME, osversion=$osversion, SysSupport=$SysSupport${normal}"
 
 # 如果系统是 Debian 7 或 Ubuntu 14.04，询问是否升级到 Debian 8 / Ubuntu 16.04
 [[ $SysSupport == 2 ]] && _ask_distro_upgrade
 
-
-
-
-
-### if [[ ! $distro_up == Yes ]]; then
-
-
-
-
+# rTorrent 是否只能安装 feature-bind branch
+[[ $CODENAME =~ (stretch|bionic) ]] && rtorrent_dev=1
 
 # 检查本脚本是否支持当前系统，可以关闭此功能
 [[ $SYSTEMCHECK == 1 ]] && [[ ! $distro_up == Yes ]] && _oscheck
 
-# 其实我也不知道 32位 系统行不行…… 也不知道这个能不能判断是不是 ARM
-# if [[ ! $lbit = 64 ]]; then
-#   echo '${title}${bold}Naive! Only 64bits system is supported${normal}'
-#   echo ' Exiting...'
-#   exit 1
-# fi
-
-
-
-# 装 wget 以防万一，不屏蔽错误输出
-if [[ ! -n `command -v wget` ]]; then echo "${bold}Now the script is installing ${yellow}wget${jiacu} ...${normal}" ; apt-get install -y wget >> /dev/null ; fi
+# 装 wget 以防万一（虽然脚本一般情况下就是 wget 下来的……）
+if [[ ! -n `command -v wget` ]]; then echo "${bold}Now the script is installing ${yellow}wget${jiacu} ...${normal}" ; apt-get install -y wget ; fi
 [[ ! $? -eq 0 ]] && echo -e "${red}${bold}Failed to install wget, please check it and rerun once it is resolved${normal}\n" && kill -s TERM $TOP_PID
 
 
 
-  echo "${bold}Checking your server's public IPv4 address ...${normal}"
+  echo -e "${bold}Checking your server's public IPv4 address ...${normal}"
 # serveripv4=$( ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' )
-  serveripv4=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}' )
+# serveripv4=$( ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:" )
+  serveripv4=$( ip route get 8.8.8.8 | awk '{print $3}' )
   isInternalIpAddress "$serveripv4" || serveripv4=$( wget --no-check-certificate -t1 -T6 -qO- v4.ipv6-test.com/api/myip.php )
   isValidIpAddress "$serveripv4" || serveripv4=$( wget --no-check-certificate -t1 -T6 -qO- checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//' )
   isValidIpAddress "$serveripv4" || serveripv4=$( wget --no-check-certificate -t1 -T7 -qO- ipecho.net/plain )
-  isValidIpAddress "$serveripv4" || { echo "${bold}${red}${shanshuo}ERROR ${jiacu}${underline}Failed to detect your public IPv4 address, use internal address instead${normal}" ; serveripv4=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}') ; }
+  isValidIpAddress "$serveripv4" || { echo "${bold}${red}${shanshuo}ERROR ${jiacu}${underline}Failed to detect your public IPv4 address, use internal address instead${normal}" ; serveripv4=$( ip route get 8.8.8.8 | awk '{print $3}' ) ; }
 
+  wget --no-check-certificate -t1 -T6 -qO- https://ipapi.co/json >~/ipapi 2>&1
+  ccoodde=$( cat ~/ipapi | grep \"country\"      | awk -F '"' '{print $4}' ) 2>/dev/null
+  country=$( cat ~/ipapi | grep \"country_name\" | awk -F '"' '{print $4}' ) 2>/dev/null
+  regionn=$( cat ~/ipapi | grep \"region\"       | awk -F '"' '{print $4}' ) 2>/dev/null
+  cityyyy=$( cat ~/ipapi | grep \"city\"         | awk -F '"' '{print $4}' ) 2>/dev/null
+  isppppp=$( cat ~/ipapi | grep \"org\"          | awk -F '"' '{print $4}' ) 2>/dev/null
+  asnnnnn=$( cat ~/ipapi | grep \"asn\"          | awk -F '"' '{print $4}' ) 2>/dev/null
+  [[ $cityyyy == Singapore ]] && unset cityyyy
+  [[ $isppppp == "" ]] && isp="No ISP detected"
+  [[ $asnnnnn == "" ]] && isp="No ASN detected"
+  rm -f ~/ipapi 2>&1
 
   echo "${bold}Checking your server's public IPv6 address ...${normal}"
 
@@ -356,21 +282,11 @@ if [[ ! -n `command -v wget` ]]; then echo "${bold}Now the script is installing 
 # serverlocalipv6=$( ip addr show dev $wangka | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | head -n1 )
 
 
-  echo "${bold}Checking your server's specification ...${normal}"
 
 
-# DISTRO=$(lsb_release -is)
-# RELEASE=$(lsb_release -rs)
-# CODENAME=$(lsb_release -cs)
-# SETNAME=$(lsb_release -rc)
-# relno=$(lsb_release -sr | cut -d. -f1)
+  echo -e "${bold}Checking your server's specification ...${normal}"
+
   kern=$( uname -r )
-  kv1=$(uname -r | cut  -d. -f1)
-  kv2=$(uname -r | cut  -d. -f2)
-  kv3=$(echo $kv1.$kv2)
-  kv4=$(uname -r | cut  -d- -f1)
-  kv5=$(uname -r | cut  -d- -f2)
-  kv6=$(uname -r | cut  -d- -f3)
 
 # Virt-what
   wget --no-check-certificate -qO /usr/local/bin/virt-what https://github.com/Aniverse/inexistence/raw/master/03.Files/app/virt-what
@@ -378,9 +294,6 @@ if [[ ! -n `command -v wget` ]]; then echo "${bold}Now the script is installing 
   wget --no-check-certificate -qO /usr/lib/virt-what/virt-what-cpuid-helper https://github.com/Aniverse/inexistence/raw/master/03.Files/app/virt-what-cpuid-helper
   chmod +x /usr/local/bin/virt-what /usr/lib/virt-what/virt-what-cpuid-helper
   virtua="$(virt-what)" 2>/dev/null
-
-  _check_install_2
-  _client_version_check
 
   cname=$( awk -F: '/model name/ {name=$2} END {print name}' /proc/cpuinfo | sed 's/^[ \t]*//;s/[ \t]*$//' )
   cputhreads=$( grep 'processor' /proc/cpuinfo | sort -u | wc -l )
@@ -397,22 +310,32 @@ if [[ ! -n `command -v wget` ]]; then echo "${bold}Now the script is installing 
   tram=$( free -m | awk '/Mem/ {print $2}' )
   uram=$( free -m | awk '/Mem/ {print $3}' )
 
-  QB_repo_ver=` apt-cache policy qbittorrent-nox | grep -B1 http | grep -Eo "[234]\.[0-9.]+\.[0-9.]+" | head -n1 `
-  QB_latest_ver=` wget -qO- https://github.com/qbittorrent/qBittorrent/releases | grep releases/tag | grep -Eo "[45]\.[0-9.]+" | head -n1 `
-# QB_latest_ver=4.0.4
-  DE_repo_ver=` apt-cache policy deluged | grep -B1 http | grep -Eo "[12]\.[0-9.]+\.[0-9.]+" | head -n1 `
-# DE_github_latest_ver=` wget -qO- https://github.com/deluge-torrent/deluge/releases | grep releases/tag | grep -Eo "[12]\.[0-9.]+.*" | sed 's/\">//' | head -n1 `
-  DE_latest_ver=` wget -qO- https://dev.deluge-torrent.org/wiki/ReleaseNotes | grep wiki/ReleaseNotes | grep -Eo "[12]\.[0-9.]+" | sed 's/">/ /' | awk '{print $1}' | head -n1 `
-# DE_latest_ver=1.3.15
-  PYLT_repo_ver=` apt-cache policy python-libtorrent | grep -B1 http | grep -Eo "[012]\.[0-9.]+\.[0-9.]+" | head -n1 `
-# DELT_PPA_ver=1.0.11
 
-  DELT_PPA_ver=` wget -qO- https://launchpad.net/~deluge-team/+archive/ubuntu/ppa | grep -B1 xenial | grep -Eo "[012]\.[0-9.]+\.[0-9.]+" | tail -n1 `
-# QBLT_PPA_ver=` wget -qO- https://launchpad.net/~qbittorrent-team/+archive/ubuntu/qbittorrent-stable | grep -B1 xenial | grep -Eo "[012]\.[0-9.]+\.[0-9.]+" | tail -n1 `
+
+  echo -e "${bold}Checking bittorrent clients' version ...${normal}"
+
+  _check_install_2
+  _client_version_check
+
+  # 有可能出现刚开的机器没有 apt update，直接 apt-cache policy 提示找不到包的情况
+
+  QB_repo_ver=` apt-cache policy qbittorrent-nox | grep -B1 http | grep -Eo "[234]\.[0-9.]+\.[0-9.]+" | head -n1 `
+  [[ -z $QB_repo_ver ]] && { [[ $CODENAME == bionic ]] && QB_repo_ver=4.0.3 ; [[ $CODENAME == xenial ]] && QB_repo_ver=3.3.1 ; [[ $CODENAME == jessie ]] && QB_repo_ver=3.1.10 ; [[ $CODENAME == stretch ]] && QB_repo_ver=3.3.7 ; }
+  QB_latest_ver=4.1.0
+  QB_latest_ver=` wget -qO- https://github.com/qbittorrent/qBittorrent/releases | grep releases/tag | grep -Eo "[45]\.[0-9.]+" | head -n1 `
+
+  DE_repo_ver=` apt-cache policy deluged | grep -B1 http | grep -Eo "[12]\.[0-9.]+\.[0-9.]+" | head -n1 `
+  [[ -z $DE_repo_ver ]] && { [[ $CODENAME == bionic ]] && DE_repo_ver=1.3.15 ; [[ $CODENAME == xenial ]] && DE_repo_ver=1.3.12 ; [[ $CODENAME == jessie ]] && DE_repo_ver=1.3.10 ; [[ $CODENAME == stretch ]] && DE_repo_ver=1.3.13 ; }
+  DE_latest_ver=1.3.15
+  DE_latest_ver=` wget -qO- https://dev.deluge-torrent.org/wiki/ReleaseNotes | grep wiki/ReleaseNotes | grep -Eo "[12]\.[0-9.]+" | sed 's/">/ /' | awk '{print $1}' | head -n1 `
+
+# DE_github_latest_ver=` wget -qO- https://github.com/deluge-torrent/deluge/releases | grep releases/tag | grep -Eo "[12]\.[0-9.]+.*" | sed 's/\">//' | head -n1 `
 
   TR_repo_ver=` apt-cache policy transmission-daemon | grep -B1 http | grep -Eo "[23]\.[0-9.]+" | head -n1 `
+  [[ -z $TR_repo_ver ]] && { [[ $CODENAME == bionic ]] && TR_repo_ver=2.92 ; [[ $CODENAME == xenial ]] && TR_repo_ver=2.84 ; [[ $CODENAME == jessie ]] && TR_repo_ver=2.84 ; [[ $CODENAME == stretch ]] && TR_repo_ver=2.92 ; }
+  TR_latest_ver=2.94
   TR_latest_ver=` wget -qO- https://github.com/transmission/transmission/releases | grep releases/tag | grep -Eo "[23]\.[0-9.]+" | head -n1 `
-# TR_latest_ver=2.94
+
 
   clear
 
@@ -421,29 +344,37 @@ if [[ ! -n `command -v wget` ]]; then echo "${bold}Now the script is installing 
   echo "${bold}---------- [System Information] ----------${normal}"
   echo
 
-  echo -ne "  IPv4    : "
+  echo -ne "  IPv4      : "
   if [[ "${serveripv4}" ]]; then
       echo "${cyan}$serveripv4${normal}"
   else
       echo "${cyan}No Public IPv4 Address Found${normal}"
   fi
 
-  echo -ne "  IPv6    : "
+  echo -ne "  IPv6      : "
   if [[ "${serveripv6}" ]]; then
       echo "${cyan}$serveripv6${normal}"
   else
       echo "${cyan}No IPv6 Address Found${normal}"
   fi
 
-  echo "  CPU     : ${cyan}$CPUNum$cname${normal}"
-  echo "  Cores   : ${cyan}${freq} MHz, ${cpucores} Core(s), ${cputhreads} Thread(s)${normal}"
-  echo "  Mem     : ${cyan}$tram MB ($uram MB Used)${normal}"
-  echo "  Disk    : ${cyan}$disk_total_size GB ($disk_used_size GB Used)${normal}"
-  echo "  OS      : ${cyan}$DISTRO $osversion $CODENAME ($arch) ${normal}"
-  echo "  Kernel  : ${cyan}$kern${normal}"
-  echo "  Script  : ${cyan}$INEXISTENCEDATE${normal}"
+  echo -e  "  ASN & ISP : ${cyan}$asnnnnn, $isppppp${normal}"
+  echo -ne "  Location  : ${cyan}"
+  [[ ! $cityyyy == "" ]] && echo -ne "$cityyyy, "
+  [[ ! $regionn == "" ]] && echo -ne "$regionn, "
+  [[ ! $country == "" ]] && echo -ne "$country"
+# [[ ! $ccoodde == "" ]] && echo -ne " / $ccoodde"
+  echo -e  "${normal}"
 
-  echo -ne "  Virt    : "
+  echo -e  "  CPU       : ${cyan}$CPUNum$cname${normal}"
+  echo -e  "  Cores     : ${cyan}${freq} MHz, ${cpucores} Core(s), ${cputhreads} Thread(s)${normal}"
+  echo -e  "  Mem       : ${cyan}$tram MB ($uram MB Used)${normal}"
+  echo -e  "  Disk      : ${cyan}$disk_total_size GB ($disk_used_size GB Used)${normal}"
+  echo -e  "  OS        : ${cyan}$DISTRO $osversion $CODENAME ($arch) ${normal}"
+  echo -e  "  Kernel    : ${cyan}$kern${normal}"
+  echo -e  "  Script    : ${cyan}$INEXISTENCEDATE${normal}"
+
+  echo -ne "  Virt      : "
   if [[ "${virtua}" ]]; then
       echo "${cyan}$virtua${normal}"
   else
@@ -455,10 +386,6 @@ if [[ ! -n `command -v wget` ]]; then echo "${bold}Now the script is installing 
 echo
 echo -e "${bold}For more information about this script, please refer the README on GitHub"
 echo -e "Press ${on_red}Ctrl+C${normal} ${bold}to exit${jiacu}, or press ${bailvse}ENTER${normal} ${bold}to continue" ; [[ ! $ForceYes == 1 ]] && read input
-
-
-### fi
-
 
 }
 
@@ -504,7 +431,6 @@ echo ; }
 # --------------------- 录入账号密码部分 --------------------- #
 
 # 向用户确认信息，Yes or No
-
 function _confirmation(){
 local answer
 while true ; do
@@ -517,60 +443,95 @@ done ; }
 
 
 # 生成随机密码，genln=密码长度
-
 function genpasswd() { local genln=$1 ; [ -z "$genln" ] && genln=12 ; tr -dc A-Za-z0-9 < /dev/urandom | head -c ${genln} | xargs ; }
 
 
-# 询问用户名。检查用户名是否有效的功能以后再做
+# 检查用户名的有效性，抄自：https://github.com/Azure/azure-devops-utils
+function validate_username() {
+  ANUSER="$1" ; local min=1 ; local max=32
+  # This list is not meant to be exhaustive. It's only the list from here: https://docs.microsoft.com/azure/virtual-machines/linux/usernames
+  local reserved_names=" adm admin audio backup bin cdrom crontab daemon dialout dip disk fax floppy fuse games gnats irc kmem landscape libuuid list lp mail man messagebus mlocate netdev news nobody nogroup operator plugdev proxy root sasl shadow src ssh sshd staff sudo sync sys syslog tape tty users utmp uucp video voice whoopsie www-data "
+  if [ -z "$ANUSER" ]; then
+      username_valid=empty
+  elif [ ${#ANUSER} -lt $min ] || [ ${#username} -gt $max ]; then
+      echo -e "${CW} The username must be between $min and $max characters${normal}"
+      username_valid=false
+  elif ! [[ "$ANUSER" =~ ^[a-z][-a-z0-9_]*$ ]]; then
+      echo -e "${CW} The username must contain only lowercase letters, digits, underscores and starts with a letter${normal}"
+      username_valid=false
+  elif [[ "$reserved_names" =~ " $ANUSER " ]]; then
+      echo -e "${CW} The username cannot be an Ubuntu reserved name${normal}"
+      username_valid=false
+  else
+      username_valid=true
+  fi
+}
 
+
+
+# 询问用户名
 function _askusername(){ clear
 
-if [[ $ANUSER = "" ]]; then
+validate_username $ANUSER
 
-    echo "${bold}${yellow}The script needs a username${jiacu}"
-    echo "This will be your primary user. It can be an existing user or a new user ${normal}"
+if [[ $username_valid == empty ]]; then
 
-    confirm_name=1
-    while [[ $confirm_name = 1 ]]; do
+    echo -e "${bold}${yellow}The script needs a username${jiacu}"
+    echo -e "This will be your primary user. It can be an existing user or a new user ${normal}"
+    _input_username
 
-        while [[ $answerusername = "" ]] || [[ $reinput_name = 1 ]]; do
-            reinput_name=0
-            read -ep "${bold}Enter username: ${blue}" answerusername
-        done
+elif [[ $username_valid == false ]]; then
 
-        addname="${answerusername}"
-        echo -n "${normal}${bold}Confirm that username is ${blue}${answerusername}${normal}, ${bold}${green}[Y]es${normal} or [${bold}${red}N${normal}]o? "
+  # echo -e "${JG} The preset username doesn't pass username check, please set a new username"
+    _input_username
 
-        read  answer
-        case $answer in [yY] | [yY][Ee][Ss] | "" ) confirm_name=0 ;;
-                        [nN] | [nN][Oo]          ) reinput_name=1 ;;
-                        *                        ) echo "${bold}Please enter ${bold}${green}[Y]es${normal} or [${bold}${red}N${normal}]o";;
-        esac
+elif [[ $username_valid == true ]]; then
 
-        ANUSER=$addname
-
-    done
-
-    echo
-
-else
-
+  # ANUSER=`  echo $ANUSER | tr 'A-Z' 'a-z'  `
     echo -e "${bold}Username sets to ${blue}$ANUSER${normal}\n"
 
 fi ; }
 
 
 
+# 录入用户名
+function _input_username(){
+
+local answerusername ; local reinput_name
+confirm_name=false
+
+while [[ $confirm_name == false ]]; do
+
+    while [[ $answerusername = "" ]] || [[ $reinput_name = true ]] || [[ $username_valid = false ]]; do
+        reinput_name=false
+        read -ep "${bold}Enter username: ${blue}" answerusername ; echo -n "${normal}"
+        validate_username $answerusername
+    done
+
+    addname=$answerusername
+    echo -n "${normal}${bold}Confirm that username is ${blue}${addname}${normal}, ${bold}${green}[Y]es${normal} or [${bold}${red}N${normal}]o? "
+
+    read answer
+    case $answer in [yY] | [yY][Ee][Ss] | "" ) confirm_name=true ;;
+                    [nN] | [nN][Oo]          ) reinput_name=true ;;
+                    *                        ) echo "${bold}Please enter ${bold}${green}[Y]es${normal} or [${bold}${red}N${normal}]o";;
+    esac
+
+    ANUSER=$addname
+
+done ; echo ; }
 
 
-# 询问密码。检查密码是否足够复杂的功能以后再做（需要满足 Flexget WebUI 密码复杂度的要求）
+
+
+
+
+# 一定程度上的密码复杂度检测：https://stackoverflow.com/questions/36524872/check-single-character-in-array-bash-for-password-generator
+# 询问密码。目前的复杂度判断还不够 Flexget 的程度，但总比没有强……
 
 function _askpassword() {
 
-#local exitvalue=0
-local password1
-local password2
-
+local password1 ; local password2 ; #local exitvalue=0
 exec 3>&1 >/dev/tty
 
 if [[ $ANPASS = "" ]]; then
@@ -582,26 +543,36 @@ if [[ $ANPASS = "" ]]; then
     while [ -z $localpass ]; do
 
       # echo -n "${bold}Enter the password: ${blue}" ; read -e password1
-        read -ep "${jiacu}Enter the password: ${blue}" password1
+        read -ep "${jiacu}Enter the password: ${blue}" password1 ; echo -n "${normal}"
 
         if [ -z $password1 ]; then
 
-          # exitvalue=1
-            localpass=$(genpasswd)
+            localpass=$(genpasswd) ; # exitvalue=1
             echo "${jiacu}Random password sets to ${blue}$localpass${normal}"
 
+        # At least [8] chars long
         elif [ ${#password1} -lt 8 ]; then
 
-            echo "${bold}${red}ERROR${normal} ${bold}Password needs to be at least ${red}[8]${jiacu} chars long${normal}" && continue
+            echo "${bold}${red}ERROR${normal} ${bold}Password must be at least ${red}[8]${jiacu} chars long${normal}" && continue
+
+        # At least [1] number
+        elif ! echo "$password1" | grep -q '[0-9]'; then
+
+            echo "${bold}${red}ERROR${normal} ${bold}Password must have at least ${red}[1] number${normal}" && continue
+
+        # At least [1] letter
+        elif ! echo "$password1" | grep -q '[a-zA-Z]'; then
+
+            echo "${bold}${red}ERROR${normal} ${bold}Password must have at least ${red}[1] letter${normal}" && continue
 
         else
 
             while [[ $password2 = "" ]]; do
-                read -ep "${jiacu}Enter the new password again: ${blue}" password2
+                read -ep "${jiacu}Enter the new password again: ${blue}" password2 ; echo -n "${normal}"
             done
 
             if [ $password1 != $password2 ]; then
-                echo "${bold}${red}WARNING${normal} ${bold}Passwords do not match${normal}"
+                echo "${bold}${red}WARNING${normal} ${bold}Passwords do not match${normal}" ; unset password2
             else
                 localpass=$password1
             fi
@@ -611,9 +582,7 @@ if [[ $ANPASS = "" ]]; then
     done
 
     ANPASS=$localpass
-    exec >&3-
-    echo
-  # return $exitvalue
+    exec >&3- ; echo ; # return $exitvalue
 
 else
 
@@ -631,8 +600,8 @@ function _askaptsource() {
 
 while [[ $aptsources = "" ]]; do
 
-#   read -ep "${bold}${yellow}Would you like to change sources list ?${normal} [${cyan}Y${normal}]es or [N]o: " responce
-    echo -ne "${bold}${yellow}Would you like to change sources list ?${normal} [${cyan}Y${normal}]es or [N]o: " ; read -e responce
+#   read -ep "${bold}${yellow}Would you like to change sources list?${normal} [${cyan}Y${normal}]es or [N]o: " responce
+    echo -ne "${bold}${yellow}Would you like to change sources list?${normal} [${cyan}Y${normal}]es or [N]o: " ; read -e responce
 
     case $responce in
         [yY] | [yY][Ee][Ss] | "" ) aptsources=Yes ;;
@@ -740,6 +709,7 @@ while [[ $QBVERSION = "" ]]; do
     echo -e "${green}12)${normal} qBittorrent ${cyan}4.0.3${normal}"
     echo -e "${green}13)${normal} qBittorrent ${cyan}4.0.4${normal}"
     echo -e "${green}14)${normal} qBittorrent ${cyan}4.1.0${normal}"
+    echo -e "${green}15)${normal} qBittorrent ${cyan}4.1.1${normal}"
     echo -e "${green}30)${normal} Select another version"
     echo -e "${green}40)${normal} qBittorrent ${cyan}$QB_repo_ver${normal} from ${cyan}repo${normal}"
     [[ $DISTRO == Ubuntu ]] &&
@@ -750,7 +720,7 @@ while [[ $QBVERSION = "" ]]; do
     echo -e "${bailanse}${bold} ATTENTION ${normal} ${blue}${bold}You have already installed ${underline}qBittorrent ${qbtnox_ver}${normal}"
 
    #read -ep "${bold}${yellow}Which version do you want?${normal} (Default ${cyan}02${normal}): " version
-    echo -ne "${bold}${yellow}Which version of qBittorrent do you want?${normal} (Default ${cyan}02${normal}): " ; read -e version
+    echo -ne "${bold}${yellow}Which version of qBittorrent do you want?${normal} (Default ${cyan}13${normal}): " ; read -e version
 
     case $version in
         01 | 1) QBVERSION=3.3.7 ;;
@@ -761,18 +731,17 @@ while [[ $QBVERSION = "" ]]; do
         12) QBVERSION=4.0.3 ;;
         13) QBVERSION=4.0.4 ;;
         14) QBVERSION=4.1.0 ;;
+        15) QBVERSION=4.1.1 ;;
         21) QBVERSION='3.3.11 (Skip hash check)' ;;
         30) _inputversion && QBVERSION="${inputversion}"  ;;
         40) QBVERSION='Install from repo' ;;
         50) QBVERSION='Install from PPA' ;;
         99) QBVERSION=No ;;
-        * | "") QBVERSION=3.3.11 ;;
+        * | "") QBVERSION=4.0.4 ;;
     esac
 
 done
 
-
-[[ `echo $QBVERSION | cut -c1` == 4 ]] && QBVERSION4=Yes || QBVERSION4=No
 
 [[ $QBVERSION == '3.3.11 (Skip hash check)' ]] && QBPATCH=Yes
 
@@ -796,12 +765,6 @@ elif [[ $QBVERSION == "Install from PPA" ]]; then
     fi
 
 else
-
-#   if [[ $CODENAME == jessie ]] && [[ $QBVERSION4 == Yes ]]; then
-#       echo -e "${bold}${red}ERROR${normal} ${bold}Since qBittorrent 4.0 needs qmake 5.5.1,\nBuilding qBittorrent 4 doesn't work on ${cyan}Debian 8 by normal method${normal}"
-#       QBVERSION=3.3.16 && QBVERSION4=No
-#       echo "${bold}The script will use qBittorrent ${QBVERSION} instead"
-#   fi
 
     echo "${bold}${baiqingse}qBittorrent ${QBVERSION}${normal} ${bold}will be installed${normal}"
 
@@ -1012,7 +975,7 @@ function _askrt() {
 
 while [[ $RTVERSION = "" ]]; do
 
-    [[ ! $CODENAME == stretch ]] &&
+    [[ ! $rtorrent_dev == 1 ]] &&
     echo -e "${green}01)${normal} rTorrent ${cyan}0.9.2${normal}" &&
     echo -e "${green}02)${normal} rTorrent ${cyan}0.9.3${normal}" &&
     echo -e "${green}03)${normal} rTorrent ${cyan}0.9.4${normal}" &&
@@ -1020,21 +983,23 @@ while [[ $RTVERSION = "" ]]; do
     echo -e "${green}11)${normal} rTorrent ${cyan}0.9.2${normal} (with IPv6 support)" &&
     echo -e "${green}12)${normal} rTorrent ${cyan}0.9.3${normal} (with IPv6 support)" &&
     echo -e "${green}13)${normal} rTorrent ${cyan}0.9.4${normal} (with IPv6 support)"
-    echo -e "${green}14)${normal} rTorrent ${cyan}0.9.6${normal} (with IPv6 support)"
+    echo -e "${green}14)${normal} rTorrent ${cyan}0.9.6${normal} (with IPv6 support, feature-bind branch)"
+    echo -e "${green}15)${normal} rTorrent ${cyan}0.9.7${normal} (with IPv6 support)"
     echo -e   "${red}99)${normal} Do not install rTorrent"
 
     [[ $rt_installed == Yes ]] &&
     echo -e "${bailanse}${bold} ATTENTION ${normal} ${blue}${bold}You have already installed ${underline}rTorrent ${rtorrent_ver}${normal}"
 #   [[ $rt_installed == Yes ]] && echo -e "${bold}If you want to downgrade or upgrade rTorrent, use ${blue}rtupdate${normal}"
-  
-    if [[ $CODENAME == stretch ]]; then
 
-        echo "${bold}${red}Note that${normal} ${bold}${green}Debian 9${normal} ${bold}is only supported by ${green}rTorrent 0.9.6 feature bind branch${normal}"
+    if [[ $rtorrent_dev == 1 ]]; then
+
+        echo "${bold}${red}Note that${normal} ${bold}${green}Debian 9${jiacu} and ${green}Ubuntu 18.04 ${jiacu}is only supported by ${green}rTorrent 0.9.6 and later${normal}"
        #read -ep "${bold}${yellow}Which version do you want?${normal} (Default ${cyan}04${normal}): " version
         echo -ne "${bold}${yellow}Which version of rTorrent do you want?${normal} (Default ${cyan}14${normal}): " ; read -e version
 
         case $version in
             14) RTVERSION='0.9.6 IPv6 supported' ;;
+            15) RTVERSION=0.9.7 ;;
             99) RTVERSION=No ;;
             "" | *) RTVERSION='0.9.6 IPv6 supported' ;;
         esac
@@ -1053,6 +1018,7 @@ while [[ $RTVERSION = "" ]]; do
             12) RTVERSION='0.9.3 IPv6 supported' ;;
             13) RTVERSION='0.9.4 IPv6 supported' ;;
             14) RTVERSION='0.9.6 IPv6 supported' ;;
+            15) RTVERSION=0.9.7 ;;
             99) RTVERSION=No ;;
             "" | *) RTVERSION=0.9.4 ;;
         esac
@@ -1063,6 +1029,7 @@ done
 
 [[ $IPv6Opt == -i ]] && RTVERSION=`echo $RTVERSION IPv6 supported`
 [[ `echo $RTVERSION | grep IPv6` ]] && IPv6Opt=-i
+[[ $RTVERSION == 0.9.7 ]] && IPv6Opt=-i
 RTVERSIONIns=`echo $RTVERSION | grep -Eo [0-9].[0-9].[0-9]`
 
 if [[ $RTVERSION == No ]]; then
@@ -1076,7 +1043,7 @@ else
 
         echo "${bold}${baiqingse}rTorrent $RTVERSIONIns (with UNOFFICAL IPv6 support)${normal} ${bold}will be installed${normal}"
 
-    elif [[ $RTVERSION == '0.9.4 IPv6 supported' ]]; then
+    elif [[ $RTVERSION == '0.9.6 IPv6 supported' ]]; then
 
         echo "${bold}${baiqingse}rTorrent 0.9.6 (feature-bind branch)${normal} ${bold}will be installed${normal}"
 
@@ -1135,9 +1102,10 @@ function _asktr() {
 
 while [[ $TRVERSION = "" ]]; do
 
-    echo -e "${green}01)${normal} Transmission ${cyan}2.77${normal}"
-    echo -e "${green}02)${normal} Transmission ${cyan}2.82${normal}"
-    echo -e "${green}03)${normal} Transmission ${cyan}2.84${normal}"
+    [[ ! $CODENAME == bionic ]] &&
+    echo -e "${green}01)${normal} Transmission ${cyan}2.77${normal}" &&
+    echo -e "${green}02)${normal} Transmission ${cyan}2.82${normal}" &&
+    echo -e "${green}03)${normal} Transmission ${cyan}2.84${normal}" &&
     echo -e "${green}04)${normal} Transmission ${cyan}2.92${normal}"
     echo -e "${green}05)${normal} Transmission ${cyan}2.93${normal}"
     echo -e "${green}06)${normal} Transmission ${cyan}2.94${normal}"
@@ -1282,7 +1250,7 @@ function _askrdp() {
 
 while [[ $InsRDP = "" ]]; do
 
-    echo -e "${green}01)${normal} VNC  with xfce4 (may have some issues)"
+    echo -e "${green}01)${normal} VNC  with xfce4"
     echo -e "${green}02)${normal} X2Go with xfce4"
     echo -e   "${red}99)${normal} Do not install remote desktop"
 #   echo -e "目前 VNC 在某些情况下连不上，谷歌找了 N 个小时也没找到解决办法\n因此如果需要的话建议用 X2Go，或者你自己手动安装 VNC 试试？"
@@ -1373,11 +1341,15 @@ echo ; }
 # --------------------- BBR 相关 --------------------- #
 
 # 检查是否已经启用BBR、BBR 魔改版
-function check_bbr_status() { bbrstatus=$(sysctl net.ipv4.tcp_available_congestion_control | awk '{print $3}')
-if [[ $bbrstatus =~ ("bbr"|"bbr_powered"|"nanqinlang"|"tsunami") ]]; then bbrinuse=Yes ; else bbrinuse=No ; fi ; }
+function check_bbr_status() { tcp_control=$(cat /proc/sys/net/ipv4/tcp_congestion_control)
+if [[ $tcp_control =~ (bbr|bbr_powered|nanqinlang|tsunami) ]]; then bbrinuse=Yes ; else bbrinuse=No ; fi ; }
 
-# 检查系统内核版本是否大于4.9
-function check_kernel_version() { if [[ $kv1 -ge 4 ]] && [[ $kv2 -ge 9 ]]; then bbrkernel=Yes ; else bbrkernel=No ; fi ; }
+# 检查理论上内核是否支持原版 BBR
+function version_ge(){ test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$1" ; }
+function check_kernel_version() { kernel_vvv=$(uname -r | cut -d- -f1)
+if version_ge $kernel_vvv 4.9  ; then bbrkernel=Yes ; else bbrkernel=No ; fi }
+
+# [[ ` ls /lib/modules/\$(uname -r)/kernel/net/ipv4 | grep tcp_bbr.ko ` ]]
 
 # 询问是否安装BBR
 function _askbbr() { check_bbr_status
@@ -1561,7 +1533,7 @@ rm -rf /etc/inexistence2
 if id -u ${ANUSER} >/dev/null 2>&1; then
     echo;echo "${ANUSER} already exists";echo
 else
-    adduser --gecos "" ${ANUSER} --disabled-password
+    adduser --gecos "" ${ANUSER} --disabled-password --force-badname
     echo "${ANUSER}:${ANPASS}" | sudo chpasswd
 fi
 
@@ -1569,23 +1541,25 @@ export TZ="/usr/share/zoneinfo/Asia/Shanghai"
 
 cat>>/etc/inexistence/01.Log/installed.log<<EOF
 如果要截图请截完整点，包含下面所有信息
-CPU     : $cname"
-Cores   : ${freq} MHz, ${cpucores} Core(s), ${cputhreads} Thread(s)"
-Mem     : $tram MB ($uram MB Used)"
-Disk    : $disk_total_size GB ($disk_used_size GB Used)
-OS      : $DISTRO $osversion $CODENAME ($arch)
-Kernel  : $kern
+CPU        : $cname"
+Cores      : ${freq} MHz, ${cpucores} Core(s), ${cputhreads} Thread(s)"
+Mem        : $tram MB ($uram MB Used)"
+Disk       : $disk_total_size GB ($disk_used_size GB Used)
+OS         : $DISTRO $osversion $CODENAME ($arch)
+Kernel     : $kern
+ASN & ISP  : $asnnnnn, $isppppp
+Location   : $cityyyy, $regionn, $country
 #################################
 INEXISTENCEVER=${INEXISTENCEVER}
 INEXISTENCEDATE=${INEXISTENCEDATE}
 SETUPDATE=$(date "+%Y.%m.%d.%H.%M.%S")
 MAXDISK=$(df -k | sort -rn -k4 | awk '{print $1}' | head -1)
+HOMEUSER=$(ls /home)
 #################################
 MAXCPUS=${MAXCPUS}
 APTSOURCES=${aptsources}
 QBVERSION=${QBVERSION}
 DEVERSION=${DEVERSION}
-DELTVERSION=${DELTVERSION}
 RTVERSION=${RTVERSION}
 TRVERSION=${TRVERSION}
 FLEXGET=${InsFlex}
@@ -1669,14 +1643,33 @@ fi
 # _checkrepo1 2>&1 | tee /etc/00.checkrepo1.log
 # _checkrepo2 2>&1 | tee /etc/00.checkrepo2.log
 
-# dpkg --configure -a
-# apt-get -f -y install
+dpkg --configure -a
+apt-get -f -y install
+
+package_list="figlet toilet lolcat ruby tree
+gcc automake make gawk build-essential checkinstall python
+screen git sudo zsh curl nano zip unzip lrzsz rsync bc locales aptitude ntpdate
+software-properties-common python-software-properties apt-transport-https ca-certificates
+dstat sysstat vnstat vmstat htop iotop smartmontools virt-what lsb-release iperf3 speedtest-cli mtr wondershaper uuid"
+
+# for package_name in $package_list ; do
+#     if [ $(apt-cache show -q=0 $package_name 2>&1 | grep -c "No packages found") -eq 0 ]; then
+#         if [ $(dpkg-query -W -f='${Status}' $package_name 2>/dev/null | grep -c "ok installed") -eq 0 ]; then
+#             install_list="$install_list $package_name"
+#         fi
+#     else
+#         echo "$package_name not found, skipping"
+#     fi
+# done
+
+# test -z "$install_list" || apt-get -y install $install_list
 
 apt-get install -y python dstat sysstat vnstat wondershaper lrzsz mtr tree figlet toilet lolcat psmisc dirmngr zip unzip locales aptitude ntpdate smartmontools ruby screen git sudo zsh virt-what lsb-release curl checkinstall ca-certificates apt-transport-https iperf3 uuid gcc make gawk build-essential rsync speedtest-cli bc
 
 if [ ! $? = 0 ]; then
     echo -e "\n${baihongse}${shanshuo}${bold} ERROR ${normal} ${red}${bold}Failed to install packages, please check it and rerun once it is resolved${normal}\n"
     kill -s TERM $TOP_PID
+    exit 1
 fi
 
 echo -e "${bailvse}\n\n\n  STEP-ONE-COMPLETED  \n\n${normal}"
@@ -1757,7 +1750,7 @@ sleep 5
 reboot -f
 init 6
 
-sleep 20
+sleep 5
 kill -s TERM $TOP_PID
 exit 0 ; }
 
@@ -1830,18 +1823,16 @@ libboost-python-dev                                                             
 zlib1g-dev
 
 if [[ $CODENAME == jessie ]]; then
-    wget --no-check-certificate https://github.com/Aniverse/BitTorrentClientCollection/raw/master/Deb%20Package/Jessie/libtorrent-rasterbar_1.0.11_jessie_amd64.deb -qO libtorrent-rasterbar_1.0.11_jessie_amd64.deb
-    dpkg -i libtorrent-rasterbar_1.0.11_jessie_amd64.deb
+    wget --no-check-certificate https://github.com/Aniverse/BitTorrentClientCollection/raw/master/Deb%20Package/Jessie/libtorrent-rasterbar_1.0.11_jessie_amd64.deb -qO lt.deb
 elif [[ $CODENAME == xenial ]]; then
-    wget --no-check-certificate https://github.com/Aniverse/BitTorrentClientCollection/raw/master/Deb%20Package/Xenial/libtorrent-rasterbar_1.0.11_xenial_amd64.deb -qO libtorrent-rasterbar_1.0.11_xenial_amd64.deb
-    dpkg -i libtorrent-rasterbar_1.0.11_xenial_amd64.deb
+    wget --no-check-certificate https://github.com/Aniverse/BitTorrentClientCollection/raw/master/Deb%20Package/Xenial/libtorrent-rasterbar_1.0.11_xenial_amd64.deb -qO lt.deb
 elif [[ $CODENAME == stretch ]]; then
-    wget --no-check-certificate https://github.com/Aniverse/BitTorrentClientCollection/raw/master/Deb%20Package/Stretch/libtorrent-rasterbar_1.0.11_stretch_amd64.deb -qO libtorrent-rasterbar_1.0.11_stretch_amd64.deb
-    dpkg -i libtorrent-rasterbar_1.0.11_stretch_amd64.deb
+    wget --no-check-certificate https://github.com/Aniverse/BitTorrentClientCollection/raw/master/Deb%20Package/Stretch/libtorrent-rasterbar_1.0.11_stretch_amd64.deb -qO lt.deb
 elif [[ $CODENAME == bionic ]]; then
-    wget --no-check-certificate https://github.com/Aniverse/BitTorrentClientCollection/raw/master/Deb%20Package/Bionic/libtorrent-rasterbar_1.0.11_bionic_amd64.deb -qO libtorrent-rasterbar_1.0.11_bionic_amd64.deb
-    dpkg -i libtorrent-rasterbar_1.0.11_bionic_amd64.deb
+    wget --no-check-certificate https://github.com/Aniverse/BitTorrentClientCollection/raw/master/Deb%20Package/Bionic/libtorrent-rasterbar-seedbox_1.0.11_bionic_amd64.deb -qO lt.deb
 fi
+
+dpkg -i lt.deb && rm -rf lt.deb
 
 cd ; ldconfig ; }
 
@@ -1880,6 +1871,7 @@ else
 
         apt-get purge -y qtbase5-dev qttools5-dev-tools libqt5svg5-dev
         apt-get autoremove -y
+        apt-get install -y libgl1-mesa-dev
 
         wget --no-check-certificate -qO qt_5.5.1-1_amd64_debian8.deb https://github.com/Aniverse/BitTorrentClientCollection/raw/master/Other%20Tools/qt_5.5.1-1_amd64_debian8.deb
         dpkg -i qt_5.5.1-1_amd64_debian8.deb
@@ -2129,8 +2121,19 @@ fi
 rtwebmin
 openssl req -x509 -nodes -days 3650 -subj /CN=$serveripv4 -config /etc/ssl/ruweb.cnf -newkey rsa:2048 -keyout /etc/ssl/private/ruweb.key -out /etc/ssl/ruweb.crt
 
-sed -i 's/^.*memory_limi.*/memory_limit = 512M/' /etc/php5/fpm/php.ini
-sed -i 's/^.*memory_limit.*/memory_limit = 512M/' /etc/php/7.0/fpm/php.ini
+[[ -e /etc/php5/fpm/php.ini ]] && sed -i 's/^.*memory_limi.*/memory_limit = 512M/' /etc/php5/fpm/php.ini
+[[ -e /etc/php/7.0/fpm/php.ini ]] && sed -i 's/^.*memory_limit.*/memory_limit = 512M/' /etc/php/7.0/fpm/php.ini
+[[ -e /etc/php/7.2/fpm/php.ini ]] && sed -i 's/^.*memory_limit.*/memory_limit = 512M/' /etc/php/7.2/fpm/php.ini
+
+# Preparation for rtorrent_fast_resume.pl
+cd ; wget http://search.cpan.org/CPAN/authors/id/I/IW/IWADE/Convert-Bencode_XS-0.06.tar.gz
+wget https://rt.cpan.org/Ticket/Attachment/1433449/761974/patch-t_001_tests_t
+tar xf Convert-Bencode_XS-0.06.tar.gz
+cd Convert-Bencode_XS-0.06
+patch -uNp0 -i ../patch-t_001_tests_t
+perl Makefile.PL
+make ; make install ; cd
+rm -rf Convert-Bencode_XS-0.06 Convert-Bencode_XS-0.06.tar.gz patch-t_001_tests_t
 
 mv /root/rtinst.log /etc/inexistence/01.Log/INSTALLATION/07.rtinst.script.log
 mv /home/${ANUSER}/rtinst.info /etc/inexistence/01.Log/INSTALLATION/07.rtinst.info.txt
@@ -2138,7 +2141,6 @@ ln -s /home/${ANUSER} /var/www/h5ai/user.folder
 
 cp -f "${local_packages}"/template/systemd/rtorrent@.service /etc/systemd/system/rtorrent@.service
 cp -f "${local_packages}"/template/systemd/irssi@.service /etc/systemd/system/irssi@.service
-systemctl daemon-reload
 
 touch /etc/inexistence/01.Log/lock/rtorrent.lock
 cd ; echo -e "${baihongse}\n\n\n\n\n  RT-INSTALLATION-COMPLETED  \n\n\n\n${normal}" ; }
@@ -2203,7 +2205,7 @@ else
 
     apt-get install -y build-essential automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libgtk-3-dev libappindicator3-dev ca-certificates libssl-dev pkg-config checkinstall cmake git # > /dev/null
     apt-get install -y openssl
-    [[ $CODENAME = stretch ]] && apt-get install -y libssl1.0-dev
+    [[ $CODENAME == stretch ]] && apt-get install -y libssl1.0-dev # https://tieba.baidu.com/p/5532509017?pn=2#117594043156l
 
     cd /etc/inexistence/00.Installation/MAKE
     wget --no-check-certificate -O release-2.1.8-stable.tar.gz https://github.com/libevent/libevent/archive/release-2.1.8-stable.tar.gz
@@ -2223,15 +2225,21 @@ else
         tar xf transmission-$TRVERSION.tar.gz ; rm -f transmission-$TRVERSION.tar.gz
         cd transmission-$TRVERSION
     else
-        git clone --depth=1 -b $TRVERSION --single-branch https://github.com/transmission/transmission transmission-$TRVERSION
+        git clone https://github.com/transmission/transmission transmission-$TRVERSION
         cd transmission-$TRVERSION
-      # [[ ! $TRVERSION = 2.93 ]] && sed -i "s/m4_copy/m4_copy_force/g" m4/glib-gettext.m4
+        git checkout $TRVERSION
+        # 修复 Transmission 2.92 无法在 Ubuntu 18.04 下编译的问题（openssl 1.1.0），https://github.com/transmission/transmission/pull/24
+        [[ $TRVERSION == 2.92 ]] && { git config --global user.email "you@example.com" ; git config --global user.name "Your Name" ; git cherry-pick eb8f500 -m 1 ; }
+        # 修复 2.93 以前的版本可能无法过 configure 的问题，https://github.com/transmission/transmission/pull/215
         [[ ! `grep m4_copy_force m4/glib-gettext.m4 ` ]] && sed -i "s/m4_copy/m4_copy_force/g" m4/glib-gettext.m4
-      # sed -i "s/FD_SETSIZE=1024/FD_SETSIZE=666666/g" CMakeLists.txt
+        # 解决 Transmission 2.9X 版本文件打开数被限制到 1024 的问题，https://github.com/transmission/transmission/issues/309
+        # [[ `grep FD_SETSIZE=1024 CMakeLists.txt ` ]] && sed -i "s/FD_SETSIZE=1024/FD_SETSIZE=777777/g" CMakeLists.txt
+        # 经测试发现没啥卵用，还是不改了 ……
     fi
 
     ./autogen.sh
     ./configure --prefix=/usr
+
     mkdir -p doc-pak
     cat >description-pak<<EOF
 A fast, easy, and free BitTorrent client
@@ -2242,7 +2250,7 @@ EOF
     if [[ $tr_installed == Yes ]]; then
         make install
     else
-        checkinstall -y --pkgversion=$TRVERSION --pkgname=transmission --pkggroup transmission
+        checkinstall -y --pkgversion=$TRVERSION --pkgname=transmission-seedbox --pkggroup transmission
         mv -f tr*deb /etc/inexistence/01.Log/INSTALLATION/packages
     fi
 
@@ -2548,8 +2556,12 @@ elif [[ $InsWineMode == apt ]]; then
     wget --no-check-certificate -qO- https://dl.winehq.org/wine-builds/Release.key | apt-key add -
 
     if [[ $DISTRO == Ubuntu ]]; then
-        apt-get install -y software-properties-common
-        apt-add-repository -y https://dl.winehq.org/wine-builds/ubuntu/
+        if [[ $CODENAME == bionic ]]; then # 暂时没有 Ubuntu 18.04 的源，只能手动加 17.10 的了
+            echo "deb https://dl.winehq.org/wine-builds/ubuntu/ artful main" > /etc/apt/sources.list.d/wine.list
+        else
+            apt-get install -y software-properties-common
+            apt-add-repository -y https://dl.winehq.org/wine-builds/ubuntu/
+        fi
     elif [[ $DISTRO == Debian ]]; then
         echo "deb https://dl.winehq.org/wine-builds/${DISTROL}/ ${CODENAME} main" > /etc/apt/sources.list.d/wine.list
     fi
@@ -2559,7 +2571,7 @@ elif [[ $InsWineMode == apt ]]; then
 
 fi
 
-wget --no-check-certificate https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
+wget --no-check-certificate -q https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
 chmod +x winetricks
 mv winetricks /usr/local/bin
 
@@ -2587,7 +2599,7 @@ chmod +x /usr/local/bin/bluray
 
 ########## 安装 新版 ffmpeg ##########
 
-cd ; wget --no-check-certificate -O ffmpeg-3.4.2-64bit-static.tar.xz https://github.com/Aniverse/BitTorrentClientCollection/raw/master/Other%20Tools/ffmpeg-3.4.2-64bit-static.tar.xz
+cd ; wget --no-check-certificate -qO ffmpeg-3.4.2-64bit-static.tar.xz https://github.com/Aniverse/BitTorrentClientCollection/raw/master/Other%20Tools/ffmpeg-3.4.2-64bit-static.tar.xz
 tar xf ffmpeg-3.4.2-64bit-static.tar.xz
 rm -rf ffmpeg-*-64bit-static/{manpages,GPLv3.txt,readme.txt}
 cp -f ffmpeg-*-64bit-static/* /usr/bin
@@ -2597,8 +2609,7 @@ rm -rf ffmpeg-*-64bit-static*
 ########## 安装 新版 mkvtoolnix 与 mediainfo ##########
 
 wget --no-check-certificate -qO- https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | apt-key add -
-echo -n  > /etc/apt/sources.list.d/mkvtoolnix.list
-echo "deb https://mkvtoolnix.download/${DISTROL}/ $CODENAME main" >> /etc/apt/sources.list.d/mkvtoolnix.list
+echo "deb https://mkvtoolnix.download/${DISTROL}/ $CODENAME main" > /etc/apt/sources.list.d/mkvtoolnix.list
 echo "deb-src https://mkvtoolnix.download/${DISTROL}/ $CODENAME main" >> /etc/apt/sources.list.d/mkvtoolnix.list
 
 wget --no-check-certificate -q https://mediaarea.net/repo/deb/repo-mediaarea_1.0-5_all.deb
@@ -2671,7 +2682,7 @@ EOF
 
 # sed -i '$d' /etc/bash.bashrc
 
-[[ `grep "Inexistence Mod" /etc/bash.bashrc` ]] && sed -i -n -e :a -e '1,137!{P;N;D;};N;ba' /etc/bash.bashrc
+[[ `grep "Inexistence Mod" /etc/bash.bashrc` ]] && sed -i -n -e :a -e '1,140!{P;N;D;};N;ba' /etc/bash.bashrc
 
 cat>>/etc/bash.bashrc<<EOF
 
@@ -2763,6 +2774,8 @@ alias cdde="cd /home/${ANUSER}/deluge/download"
 alias cdqb="cd /home/${ANUSER}/qbittorrent/download"
 alias cdrt="cd /home/${ANUSER}/rtorrent/download"
 alias cdtr="cd /home/${ANUSER}/transmission/download"
+alias cdin="cd /etc/inexistence/"
+alias cdrut="cd /var/www/rutorrent"
 
 alias shanchu="rm -rf"
 alias xiugai="nano /etc/bash.bashrc && source /etc/bash.bashrc"

@@ -1,7 +1,7 @@
 # Inexistence
 
 > 警告：不保证本脚本能正常使用，翻车了不负责；上车前还请三思  
-> 作者是个菜鸡，没学过编程，本脚本的不少内容是 依样画葫芦 + 抄袭 + 百度/谷歌得来的  
+> 作者是个菜鸡，没学过程序，本脚本的不少内容是 依样画葫芦 + 抄袭 + 百度/谷歌得来的  
 > 建议重装完系统后安装本脚本，非全新安装的情况下翻车几率更高  
 
 
@@ -28,10 +28,10 @@ bash inexistence.sh
 
 检查是否以 root 权限来运行脚本，检查公网 IP 地址与系统参数  
 
-![升级系统](https://github.com/Aniverse/inexistence/raw/master/03.Files/images/inexistence.02.png)
+![升级系统](https://github.com/Aniverse/inexistence/raw/master/03.Files/images/inexistence.02.1.png)
+![升级系统](https://github.com/Aniverse/inexistence/raw/master/03.Files/images/inexistence.02.2.png)
 
-注意：似乎采用软 RAID 的盒子使用本脚本升级系统后会导致 dd 的 IO 测试性能暴降！  
-支持 `Ubuntu 16.04、Debian 8、Debian 9` ；`Ubuntu 14.04、Debian 7` 可以选择用脚本升级系统；其他系统不支持  
+支持 `Ubuntu 16.04 / 18.04`、`Debian 8 / 9` ；`Ubuntu 14.04`、`Debian 7` 可以选择用脚本升级系统；其他系统不支持  
 使用 ***`-s`*** 参数可以跳过对系统是否受支持的检查，不过这种情况下脚本能不能正常工作就是另一回事了  
 
 ![系统信息](https://github.com/Aniverse/inexistence/raw/master/03.Files/images/inexistence.03.png)
@@ -41,7 +41,7 @@ bash inexistence.sh
 ![安装时的选项](https://github.com/Aniverse/inexistence/raw/master/03.Files/images/inexistence.04.png)
 
 1. ***是否升级系统***  
-如果你的系统是 `Debian 7` 或 `Ubuntu 14.04`，你可以用本脚本来升级到 `Debian 8` 或 `Ubuntu 16.04`  
+如果你的系统是 `Debian 7` 或 `Ubuntu 14.04`，你可以用本脚本来升级到 `Debian 8／9` 或 `Ubuntu 16.04／18.04`  
 理论上整个升级过程应该是无交互的，应该不会碰到什么问你 Yes or No 的问题  
 升级完后会直接执行重启命令，重启完后你需要再次运行脚本来完成软件的安装  
 
@@ -104,7 +104,6 @@ bash inexistence.sh
 9. ***libtorrent-rasterbar***  
 本来这里是有个询问 libtorrent-rasterbar 版本的，现在直接移除了  
 现在脚本安装的 Deluge 和 qBittorrent 都会使用来自 RC_1_0 分支的 1.0.11 版，可以正确地汇报双栈 IP 地址  
-[关于 libtorrent-rasterbar 的一些个人总结](https://github.com/Aniverse/inexistence/blob/master/ChangeLOG.md#about-libtorrent-rasterbar)  
 
 
 10. ***rTorrent***  
@@ -226,30 +225,35 @@ VNC 目前在 Debian 下安装完后无法连接，建议 Debian 系统用 X2Go 
 
 #### To Do List
 
-- **MiMA**  
+- **Password**  
 修改 SSH、Deluge、ruTorrent、Transmission、qBittorrent、Flexget 密码的脚本  
 实现起来不难，主要是现在没空做  
-- **Banben**  
+
+- **Version**  
 升级、降级 Deluge、ruTorrent、Transmission、qBittorrent 版本的脚本  
-其实这个再跑一次 inexistence 脚本也可以做到，但感觉有点麻烦
+
+- **Box**  
+考虑把各种客户端的安装每个都做成单独的脚本，然后在 `inexistence`、`banben` 中需要安装的时候直接调用  
+这个思路是从 QuickBox 那边学到的，最后的命令大概这样子  
+`box install vnc`、`box purge qbittorrent`  
 
 #### Under Consideration
 
-- **不使用 root 运行**  
-将 Tr/De/Qb 的运行用户从 root 换成普通用户  
-不过本人习惯是用 root，所以 emmm …… 并且这样的话 mingling 也要重写，所以我很可能不会做  
+- **rTorrent installation rewrite**  
+说是 rewrite 其实我就是想把 `rtinst` 整合到 `inexistence` 体系里  
 
+- **Multi-user**  
+1. 将 Tr/De/Qb 的运行用户从 root 换成普通用户  
+2. 多用户模式，可以直接 adduser 并设置好 de/qb/rt/tr/flexget  
 
 #### Known Issues
 
 - **Debian 下 VNC 可能连不上**  
 求大佬们赐教  
-- **没有检查用户输入的账号、密码的有效性**  
-什么时候学好了正则再说  
 
+#### 碎碎念
 
-
-
+其实 `mingling`、`box` 这些脚本做得再好，对于一般人而言也没有 QuickBox 那个 Dashboard 好，毕竟那个不需要用 SSH  
 
 
 
@@ -468,6 +472,7 @@ https://rclone.org/install
 http://dev.deluge-torrent.org/wiki/UserGuide    
 https://mkvtoolnix.download/downloads.html  
 http://outlyer.net/etiq/projects/vcs  
+https://amefs.net  
 https://www.dwhd.org  
 https://moeclub.org  
 https://sometimesnaive.org  
@@ -491,5 +496,5 @@ https://tieba.baidu.com/p/5536354634
 https://tieba.baidu.com/p/5532509017  
 https://tieba.baidu.com/p/5158974574  
 https://serverfault.com/questions/48724/100-non-interactive-debian-dist-upgrade  
-https://blog.csdn.net/loveaborn/article/details/17269645  
-
+https://github.com/Azure/azure-devops-utils  
+https://stackoverflow.com/questions/36524872/check-single-character-in-array-bash-for-password-generator  
