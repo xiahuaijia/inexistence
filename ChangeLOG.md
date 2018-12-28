@@ -1,5 +1,192 @@
 # ChangeLog  
-> 有时候代码内部排版问题、不怎么影响使用的修改就不列出来了  
+
+
+
+
+
+
+## 2018.12.05
+
+`inexistence 1.0.9.10`  
+1. 继续完善能汉化的部分，不急慢慢来……  
+2. 更新无交互的语言和时区设定方法  
+3. wine 字体包的下载链接以防万一加上防超时设定  
+
+
+
+
+
+
+## 2018.12.04
+
+`inexistence 1.0.9.9`  
+1. 安装 lt 时增加 98 `lt_version=system` 的隐藏选项，以防万一  
+2. 由于 18.04 已有 wine 的 ppa 源，因此不再使用 artful 的源  
+3. 优化 wine 的字体显示  
+抄袭自：https://blog.gloriousdays.pw/2018/12/01/optimize-wine-font-rendering/  
+4. **New Feature，WIP：语言选项，脚本以后会加入中文显示**  
+
+`mingling 0.9.2`  
+1. 放弃治疗  
+2. 更新 `inexistence` 的运行命令  
+3. 用自己的 A bench 代替 UnixBench  
+4. 隐藏更改终端语言为中文的选项  
+5. 说明 IPv6 配置脚本是为了 Online.net 独服设计的  
+
+`README 1.1.6`  
+1. **更新 Usage**  
+2. 更新 Issues 的要求  
+
+
+
+
+
+## 2018.12.03
+
+`inexistence 1.0.9.6`  
+1. Apps 部分增加 ethtool  
+2. DeBUG：完善 lt 选择部分 debug 的输出内容  
+3. 升级 mediaarea 到 1.0.6  
+4. **Bug Fix：修复选择 qBittorrent 4.1.3 也会强制要求安装 lt 1.1 的问题**  
+5. **Bug Fix：修复已安装 lt 1.1 的情况下还强制要求安装 lt 1.1 的问题**  
+
+
+
+
+
+## 2018.11.27
+
+`inexistence 1.0.9.3`  
+1. Bug Fix：修复 `--skip-apps` 无效的问题  
+
+`install_deluge 1.17`  
+1. UI：隐藏 pip 的输出日志  
+
+
+
+
+
+## 2018.11.25
+
+`inexistence 1.0.9.2`  
+1. Bug Fix：修复老系统安装 Deluge 2.0 依赖不够新的问题  
+2. UI：提示可以使用 `-s` 参数跳过校验  
+原先是让你自己修改脚本里的内容  
+3. UI：增加 `SKIPAPPS=Yes` 的提示  
+
+`install_deluge 1.15`  
+1. **Bug Fix：修复老系统安装 Deluge 2.0 依赖不够新的问题导致无法运行的问题**  
+
+
+
+
+
+
+## inexistence 1.0.9 Full ChangeLOG
+1. **Feature：使用 `install_libtorrent_rasterbar` 脚本安装 lt**  
+2. **Feature：重写 libtorrent-rasterbar 的安装判断**  
+3. **Feature：qBittorrent 可选版本调整，去掉了 3.3.11 可跳校验的隐藏选项**  
+4. **Feature：Deluge 可选版本调整，增加 2.0.dev**  
+5. Feature：apt 安装 deluge 时，也安装 deluge、deluge-console、deluge-gtk  
+6. Feature：Deluge 从 PPA 安装时，不再指定使用 libtorrent-rasterbar8  
+7. Feature：Deluge python setup.py install 的时候，记录文件变动，方便以后卸载  
+8. Feature：添加新参数 `--skip-apps`，可以跳过安装 iperf 等软件  
+9. Feature：安装 rTorrent 的时候不安装 webmin  
+10. SubScript：更新 `bluray` 脚本，增加 BDinfoCLI 0.7.5  
+11. SubScript：更新 `install_libtorrent_rasterbar`脚本  
+12. SubScript：更新 `install_deluge` 脚本  
+13. Code：qbittorrent checkinstall 的包名改回了 qbittorrent-nox，以防万一安装前再卸载下之前的版本  
+14. Code：去掉了 _installqbt2 及其相关代码  
+15. Code：去掉 spinner  
+16. Code：启用对网卡的检测  
+17. Code：一些变量名称以及注释文字的改动  
+18. **Bug Fix：修复新版本 flexget 连接 deluge 还需要安装 deluge-client 却没装的问题**  
+19. Bug Fix：修复 Flexget 里 transmission 认证信息丢失的问题（Merge PR from Rhilip）  
+20. Bug Fix：修复 /etc/inexistence/00.Installation/MAKE 没被创建的问题  
+21. Bug Fix：修复 rt/lt opinions 里有 ppa 等选项的问题  
+22. **UI：去除是否开启 swap、是否换源、编译线程数量的问题**  
+23. UI：重新用了 `read -ep`，缩短了一些问题的字数  
+24. UI：提示文字内容调整  
+
+
+
+
+
+## 2018.11.18
+
+`inexistence 1.0.9.1`  
+1. 修改之前安装过 `inexistence` 时对之前文件夹的处理，不删除只重命名  
+2. UI：去掉了 `use it at your own risk` 的说明  
+3. UI：其他界面调整，提示文字调整（最花时间了……）  
+4. 变量名称调整  
+5. Bug Fix：安装 lt 时新增 lt 是否大于 1.0.6 的判断（qb 需要）  
+6. **New Feature：去掉了以前的 lt 安装代码，使用 `install_libtorrent_rasterbar` 脚本**  
+7. 修复 deluge 2.0 deluge-web.service 的 systemd 不可用的问题  
+8. UI：重新用了 `read -ep`，缩短了一些问题的字数  
+9. UI：提示文字内容调整  
+
+
+
+
+
+## 2018.11.17
+
+`install_libtorrent_rasterbar 1.14`  
+1. 修复 `version_ge` 使用不当的问题  
+2. 检测 libtorrent 是否需要使用 1.1.3 及以上的版本  
+3. 修复 apt 安装时显示版本号为空的问题  
+4. 改进进度显示功能（花了我好几个小时 orz……）  
+5. 修改版本号，代码微调  
+
+`install_deluge 1.15`  
+1. 进一步优化安装第二个 Deluge 的逻辑  
+但发现逻辑是搞清楚了但是装的有问题，以后再说吧  
+2. 修复 apt 安装时显示版本号为空的问题  
+但发现逻辑是搞清楚了但是装的有问题，以后再说吧  
+3. 增加进度显示功能  
+4. 修改版本号，代码微调  
+
+
+
+
+
+## 2018.11.15
+
+实际上是 15 号写的，只是没弄到 git 上（一是没空测试，二是 lt 1.1.11 和 qb 4.1.4 还没发布）  
+
+`inexistence 1.0.9.0`  
+1. **Bump version to 1.0.9**  
+2. **Feature：qBittorrent 可选版本调整，去掉了 3.3.11 和 4.1.1.1 两个隐藏选项**  
+增加了 4.1.4，并作为默认选项  
+对仍然使用 qB 3.3.X 的用户作出提示，下个版本抛弃 qb 3.3.x 的选项  
+此外增加了 qb 4.2.0.alpha 的安装选项  
+3. **Feature：Deluge 可选版本调整**  
+1.3.9 不再作为隐藏选项而是直接显示，同时去掉了一些几乎没人用的版本  
+4. 选择其他版本时候由于有安装失败的可能性，添加了 `use it at your own risk` 的说明  
+5. **Feature：重写 libtorrent-rasterbar 的安装判断**  
+但是目前尚未启用这个问题，将在下一个版本里启用；情况还挺复杂，分了四个情况讨论 orz  
+6. 用新的办法检测当前系统里 libtorrent-rasterbar 的版本号  
+7. 一些变量名称以及注释文字的改动  
+8. 去掉 spinner  
+9. Bug Fix：修复 /etc/inexistence/00.Installation/MAKE 没被创建的问题  
+10. qbittorrent checkinstall 的包名改回了 qbittorrent-nox，以防万一安装前再卸载下之前的版本  
+11. 去掉了 _installqbt2 及其相关代码  
+12. Deluge 从 PPA 安装时，不再指定使用 libtorrent-rasterbar-8  
+13. Deluge python setup.py install 的时候，记录文件变动，方便以后卸载  
+14. Bug Fix：尝试修复 `--skip-apps` 参数无效的问题  
+
+`install_deluge 1.0.10`  
+1. 修复 Deluge 1.3.10 及以前版本 deamon 连不上的问题  
+2. 记录 deluge python setup.py install 的文件变动日志，方便以后卸载  
+3. 优化安装第二个 Deluge 的逻辑  
+
+`README 1.1.4`  
+1. 对应脚本改动更新说明  
+
+`ChangeLOG 0.2.0`  
+1. 补写之前的一些日志里标签（Feature、Bug Fix 之类的） 没写上的问题，不过还没补完  
+2. 从 `1.0.9` 开始，每次 `inexistence` 版本号升级的时候都写上完整的 ChangeLog  
+之前没写的也打算抽空补上  
 
 
 
@@ -7,11 +194,407 @@
 
 
 
-## 2018.05.28
+
+
+
+
+
+## 2018.11.03
+
+`inexistence 1.0.8`  
+1. **UI：去除是否开启 swap、是否换源、编译线程数量的问题**  
+感觉问题有点多，就简化了下，直接使用之前的默认选项（开启 swap、换源、全线程编译）  
+对默认设定不满意的，还是可以使用参数来指定  
+2. New Feature：添加新参数 `--skip-apps`，可以跳过安装 iperf 等软件  
+20181105：实际上没用，还没研究为什么  
+
+`install_deluge 1.0.9`  
+1. 修复输入版本还要求你指定模式的问题  
+2. Install 改为 Installing  
+3. 增加 spinner，并投入使用（进度显示功能）    
+
+`README 1.1.3`  
+1. 对应脚本改动更新说明  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 2018.10.29
+
+
+
+
+`install_libtorrent_rasterbar 1.1.1`  
+1. 自动判断各类 branch 所属的版本号  
+2. 优化安装时候的文字提示排版  
+3. 增加随机数用于下载同一个分支时作区分  
+4. 代码排版风格改动  
+5. checkinstall 失败后再 make install 一次，解决之前 checkinstall 安装时包名不一致的情况  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 2018.10.23
+
+`inexistence 1.0.8`  
+1. 改了两次 flexget，这次我还是改回原先的，哎  
+2. flexget 的 alias 从 `fl` 开头改成 `fg` 开头，`flood` 缩写成 `fl`  
+3. 不安装 webmin，反正安装也就是 `rtwebmin` 一句的事情……  
+
+`mingling 0.9.1`  
+1. Bump Version  
+2. 我好想删掉这货啊。。。  
+3. 对应 fg alias 的改动，更新命令说明  
+
+`TCP 2.2.2`  
+1. 更新 Xanmod  
+apt 安装的为最新的 4.19，输入 4.17/4.18 用 dpkg 安装该版本号最新的内核  
+2. 启用卸载指定内核的功能  
+3. 修复 Ubuntu 18.04 下安装锐速的问题  
+4. **启用删除指定内核的功能**  
+5. 可以检测到、删除 PVE 内核  
+6. **检查 netboot (Beta)，并作出提示**  
+在 Scaleway 上测试过了，并发现现在 netboot 也支持 BBR 了……  
+7. 启用 bbr 前运行 `modprobe tcp_$bbrname`  
+8. 更新检查普通版 bbr 是否开启成功的方式  
+9. 加了 `ls /lib/modules/$(uname -r)/kernel/net/ipv4`，暂时没有测试条件，也不测试了  
+10. 对应更新内容，更新 README  
+
+
+
+
+
+## 2018.10.22
+
+`TCP 2.1.4`  
+1. 安装其他锐速内核时，多加几次 apt-get -f -y install  
+2. 默认从 apt 安装 3.16.0-43 内核  
+顺带一提，事实上现在从 deb 安装的方式是选都没得选的……  
+3. 是否加入 trusty-security 源，先做个判断，免得加两遍  
+
+
+
+
+
+## 2018.10.21
+
+`inexistence 1.0.8`  
+1. 修复昨天瞎改后 Flexget WebUI 不可用的问题  
+
+`TCP 2.1.3`  
+1. 重要的事情不说三遍了，自己看着都烦  
+2. 关于 BBR 是否开启成功的事情，报道上可能会出现偏差，特此说明  
+
+
+
+
+
+## 2018.10.20
+
+`inexistence 1.0.8`  
+1. 从源码安装 2.16.2 版本的 Flexget  
+修复一个 bug 引入更严重的 bug 系列  
+Flexget 最近的新版本会出现找不到 deluge-client 的问题，当时没想到 pip 安装老版本，从源码装了老版本，但没测试 WebUI ……  
+
+`de2rt`  
+1. 更新第二版  
+2. 上传 deratio2rt
+
+
+
+
+
+## 2018.10.18
+
+`TCP 2.1.1`  
+1. 由于 apt 安装的时候可能还强行给你塞个新内核进来，因此跑两次删除内核的命令  
+2. 闪瞎狗眼，闪烁查看日志的文字提示，重要的事情说三遍  
+有的人报错都不提供日志，心累。。。  
+
+
+
+
+
+## 2018.10.17
+
+`de2rt`  
+1. 上传第一版  
+2. 去除 tracker 标签功能  
+
+
+
+
+
+## 2018.10.14
+
+`TCP 2.0.8`  
+1. **加入删除指定内核的功能**  
+2. **Debian 和 Ubuntu 都默认从 apt 安装内核**
+3. 修复 OVH 定制内核在内核列表的显示问题  
+
+
+
+
+
+## 2018.10.13
+
+`bluray 2.7.6`  
+1. **允许在缺少软件的情况下继续运行脚本**  
+主要是由于共享盒子缺少 bc 比较麻烦，而 bc 也不是必须  
+于是在分辨率计算那边，针对没有 bc 命令的情况作了单独的处理  
+2. 更新 README 部分说明，加入 https 直链的介绍  
+
+`TCP 2.0.3`  
+1. 3.16.0-4 锐速 apt 增加 headers  
+2. **修改 bbr 是否开启的检测方法**  
+3. 考虑到有的系统 lsmod 不出 bbr，因此错误时候的提示文字改成了 “可能开启失败”  
+4. 修复系统版本号检查时可能出现的 bug  
+5. 增加对 OVH 定制内核的检查  
+6. 增加从 apt 安装 4.4.0-47 内核的功能，并默认使用这个  
+7. 安装 3.16.0-4 内核时隐藏输出  
+8. 更新 README  
+
+
+
+
+
+## 2018.10.12
+
+`inexistence 1.0.8`  
+1. Merge PR from Rhilip  
+fix auth of transmission miss in flexget config  
+
+`bluray 2.7.5`  
+1. 修复手滑  
+
+`jietu`  
+1. 修复手滑  
+
+
+
+
+
+## 2018.10.11
+
+`inexistence 1.0.8`  
+1. 修复手滑  
+
+`bluray 2.7.5`  
+1. 修复手滑  
+2. 加入 nconvert 的安装  
+
+`jietu`  
+1. 增加 nconvert 的使用  
+2. 修复检测文件是否存在时的判断逻辑  
+
+
+
+
+
+## 2018.10.10
+
+`inexistence 1.0.8`  
+1. **更新 bluray**  
+2. 更新 ffmpeg 到 4.0.2（inexistence）  
+3. 更新 gclone 命令  
+4. 新增 vnss alias  
+5. 启用对网卡的检测（之前是为什么关掉了？……）  
+
+`bluray 2.7.2`  
+1. **优化运行完成后的排版，BDinfo 改为可选显示**  
+2. 更新自带库的 ffmpeg 到 4.0.2  
+3. 更新 README  
+4. 加入 nconvert  
+
+`README 1.1.2`  
+1. 小幅度删减  
+
+
+
+
+
+## 2018.10.09
+
+`inexistence 1.0.8`  
+1. 增加 BDinfoCLI 0.7.5  
+
+`bluray 2.6.9.UHD`  
+1. **New Feature：支持 UHD Blu-ray**  
+2. **增加 BDinfoCLI 0.7.5**  
+3. **UI：改进 debug 模式，界面排版调整，增加信息量**  
+4. **New Feature：截图增加 2160p 可选分辨率**  
+5. Bug Fix：修复指定分辨率时没有出现默认分辨率数值的问题  
+6. 有 root 权限的盒子，安装 ffmepg 时使用 4.0.2 static builds  
+7. Bug Fix：修复选择制作含有空 tracker 的种子时无提示信息的问题  
+8. Bug Fix：屏蔽 xargs 的错误输出  
+9. Bug Fix：修复检查带多个视频轨（Dolby Vision, eg.）的原盘时检测到两个分辨率没有选择第一个分辨率的问题  
+10. UI：部分界面调整以及代码缩进调整  
+
+
+
+
+
+## 2018.10.08
+
+`inexistence 1.0.8`  
+1. apt 安装 deluge 时，也安装 deluge、deluge-console、deluge-gtk  
+
+
+
+
+
+## 2018.10.07
+
+`inexistence 1.0.8`  
+1. 社畜的日子……脚本都没怎么动了，要做的事情一堆啊……  
+1. **Bump version to 1.0.8**  
+这次内容多一些，也好久没更新版本号了，升级下吧 _(:з」∠)_  
+2. Bug Fix：修复 qBittorrent 默认版本不是 4.1.3 的问题  
+3. 增加安装 socat、jq、iperf  
+4. 增加一个隐藏选项，可以安装可以显示硬盘剩余空间的 qBittorrent 4.1.1  
+5. qBittorrent 默认连接端口从默认的 8999 改成 9002  
+这个操作可以让我判断有多少盒子是用我脚本装的，233  
+6. 增加一些 alias  
+7. 增加 update-tracker.sh 和 .py，用于 Deluge 配合 Auto-Irssi 使用时解决 Unregistered Torrents 问题  
+8. **修复 Debian 9、Ubuntu 18.04 下安装 rTorrent 0.9.6 失败的问题（rtinst）**  
+使用了 2018.01.30 的 feature-bind 版本  
+9. 更新 ffmpeg 到 4.0.2、rar/unrar 到 5.6.1（rtinst）  
+10. **重新启用 Deluge/qBittorrent/Transmission 的反代，新增 Flexget 的反代（rtinst）**  
+不过默认网址还是用端口号的。以后可以考虑结合 acme.sh 脚本使用；Flood 反代还有问题，先不管了  
+
+`rtinst`  
+1. 修复 Debian 9、Ubuntu 18.04 下安装 rTorrent 0.9.6 的问题  
+2. 更新 ffmpeg 到 4.0.2、rar/unrar 到 5.6.1  
+3. 重新启用 Deluge/qBittorrent/Transmission 的反代，新增 Flexget 的反代  
+
+
+
+
+
+## 2018.09.29
+
+`TCP 2.0.0`  
+1. **魔改版 BBR 支持 4.16-4.18 内核**  
+
+
+
+
+
+## 2018.09.26
+
+`inexistence 1.0.7`  
+1. 增加 qbt 4.1.3 的选项，并将其设置为默认选项  
+
+
+
+
+
+## 2018.09.07-08
+
+`TCP 1.9.9`  
+1. **安装 3.16.0-4 内核时默认从 apt 安装**  
+2. 修复安装 xanmod 时的一些 bug  
+
+
+
+
+
+## 2018.09.03
+
+`inexistence 1.0.7`  
+1. 上班真难受啊…… 盒子也没怎么管，痿得不行，bbr、qBittorrent、libtorrent-rasterbar 折腾来折腾去都残血  
+反正这更新日志也没人看的，我就多吐槽一些吧 ←_←  
+2. 增加 qBittorrent 4.1.2 的安装选项，并修复了原版 WebUI 可能打不开的问题  
+3. qBittorrent 的默认选项设置为 4.1.1  
+（其实似乎国内站对一定版本的还没发布的 qb 直接白名单了吧，刚发布几个小时我去测试发现国内主流站点全都支持）  
+4. 修复 Flexget 报错时检查密码和检查配置文件弄反了的问题  
+
+
+
+
+
+## 2018.07.23
+
+`inexistence 1.0.7`  
+1. 增加 iotop、htop、atop 的安装  
+2. 不生成 SSL 证书  
+
+`TCP 1.9.7`  
+1. Xanmod 安装调整  
+
+
+
+
+
+## 2018.07.16
+
+`inexistence 1.0.7`  
+1. 修复 Kimsufi 服务器安装时系统版本号显示不正常的问题  
+
+
+
+
+
+## 2018.07.06
+
+`inexistence 1.0.7`  
+1. 重新加回 rTorrent 0.9.6 feature-bind 版，采用的是 2018.06.06 的版本（2018.06.07 版本号就升级到 0.9.7 了）  
+
+`rtinst`
+1. 重新加回 rTorrent 0.9.6 feature-bind 版，采用的是 2018.06.06 的版本（2018.06.07 版本号就升级到 0.9.7 了）  
+
+
+
+
+
+## 2018.07.06
+
+`inexistence 1.0.7`  
+1. 上次改 rTorrent feature-bind 版本改为 0.9.7 后有些其他地方没改，这次修正下  
+
+
+
+
+
+## 2018.06.28
+
+`inexistence 1.0.7`  
+1. Alias：完善 `sshr`，屏蔽 `del` 中 TotalTraffice 的日志部分  
+2. rTorrent feature-bind 分支版本号也已改为 0.9.7，同步一下  
+
+`ipv6`
+1. 尝试适配 Ubuntu 18.04（尚未测试）  
+
+
+
+
+
+## 2018.06.09
 
 `inexistence 1.0.7`  
 1. **Bump version to 1.0.7**  
-2. 增加 rTorrent 0.97 的安装选项  
+2. 增加 rTorrent 0.9.7 的安装选项  
 
 `rtinst`  
 1. 支持安装 rTorrent 0.9.7  
@@ -68,7 +651,7 @@
 4. 更新了下 BBR 是否启用以及内核是否支持的检查方式  
 5. 默认的 IP 检查方式不使用 ifconfig  
 6. 先指定 repo、PPA 对应软件的版本号，再检查是否正确  
-有可能出现刚开的机器没有 apt update，直接 apt-cache policy 提示找不到包  
+有可能出现刚开的机器在没有 apt update 的情况下直接 apt-cache policy 会提示找不到包的情况  
 
 `README 1.1.2`  
 1. 更新 To Do List、Under Consideration、Known Issues  
@@ -85,7 +668,6 @@
 3. **New Feature：检查用户名、密码的有效性**  
 用户名检查应该没问题了；密码复杂性还不够完善，目前只实现了要求必须同时带字母和数字  
 对于常见密码比如 `12345678` 这样的密码还无法识别，以后再改进  
-4. 
 
 `rtinst`  
 1. rar/unrar 的下载目录改到了 /root（避免用户没创建成功时 rar 也没装成功的问题）  

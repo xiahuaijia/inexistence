@@ -4,7 +4,7 @@
 # https://npchk.info/linux-flexget-rss/
 # https://linkthis.me/2018/02/15/the-note-of-using-flexget/
 # 
-# 提示1：最好在 SSH 或者 WebUI 下编辑 Flexget 配置文件；在 Windows 下也不要用系统自带的记事本编辑，容易出错（换行问题之类的）
+# 提示1：新手最好在 SSH 或者 WebUI 下编辑 Flexget 配置文件；在 Windows 下也不要用系统自带的记事本编辑，容易出错（换行问题之类的）
 # 提示2：Flexget 配置文件遵循 YAML 格式，请注意空格和缩进
 # 本脚本安装完 Flexget 后默认不启用 RSS 功能，如果需要使用 RSS 功能，主要有两个办法
 # 1. 使用 daemon 模式的 schedules
@@ -32,6 +32,8 @@ templates:
       path: /home/SCRIPTUSERNAME/transmission/download/
       host: localhost
       port: 9099
+      username: SCRIPTUSERNAME
+      password: SCRIPTPASSWORD
   de:
     deluge:
       path: /home/SCRIPTUSERNAME/deluge/download/
@@ -113,12 +115,14 @@ tasks:
     download: /home/SCRIPTUSERNAME/deluge/watch
 
 
-# Flexget WebUI 设定，保持默认即可
+# Flexget WebUI 设定，可以不改
+# base_url 是为了反代设置的，需要使用反代的话就取消这个的注释，然后在安装了 rTorrent 的情况下（不装 rt 的话没有 nginx），Flexget WebUI 地址就变成了 https://你盒子的 IP 地址/flexget
 web_server:
   port: 6566
   web_ui: yes
+# base_url: /flexget
 
-# 默认关闭了 RSS 功能，需要自行打开，操作步骤见本文底部
+# 默认关闭了 RSS 功能（这个配置文件只是示范并没有配置好，当然不会打开 RSS），需要自行打开，操作步骤见本文底部
 schedules: no
 
 
@@ -141,15 +145,9 @@ schedules: no
 ### 首先在 SSH 输入 crontab -e，选择一个文本编辑器，默认的 nano 即可 （nano 使用教程：http://man.linuxde.net/nano）
 ### 设置 2 分钟执行一次 RSS，就在文件的最底下输入（这里的数字 2 就是 2 分钟执行一次的意思）
 ### */2 * * * * /usr/local/bin/flexget execute
-### 保存退出，然后在 SSH 输入下面的命令重启 cron
-### /etc/init.d/cron restart
-### 之后可以在 WebUI 中看 Log 来判断 Flexget 是否有在正常工作
+### 保存、退出，之后可以在 WebUI 中看 Log 来判断 Flexget 是否有在正常工作
 
 ### 以上两个办法都是最短 1 分钟执行 1 次 RSS，如果你想实现更高的频率得用别的办法
-
-### 3. 比如这样子就是 10 秒 RSS 1 次（不要问我这个怎么用，自己看着办）
-
-# while true ; do flexget --cron execute ; sleep 10 ; done
 
 # 提示：一般情况下不建议 RSS 频率太高，一是 Flexget 本身执行过程中会消耗一些系统资源，二是 RSS 频率太高可能有些站点认为你是在做恶意攻击……
 # 至于多久一次算是频率太高，你自己看着办吧……
